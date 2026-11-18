@@ -1,8 +1,7 @@
 """Configuration for the TrafficMind agent.
 
 All paths and tunable values live here so nothing is hardcoded in the logic
-modules. Thresholds for congestion, prediction and signals are added in later
-steps.
+modules. Thresholds for prediction and signals are added in later steps.
 """
 
 from __future__ import annotations
@@ -76,3 +75,73 @@ class MonitorConfig:
 def configure_logging(level: int = logging.INFO) -> None:
     """Set up console logging (used by scripts and tests, not on import)."""
     logging.basicConfig(level=level, format=LOG_FORMAT)
+
+
+@dataclass(frozen=True)
+class CongestionConfig:
+    """How measured traffic is turned into a congestion score and level.
+
+    Each road gets four signals scaled to 0..1 (1 = as bad as the reference):
+
+    * occupancy   = occupancy_pct / ``occupancy_ref_pct``
+    * queue       = (queue_length_m / road length) / ``queue_ref_fraction``
+    * waiting     = mean_waiting_time_s / ``waiting_ref_s``
+    * speed drop  = 1 - speed_ratio
+
+    The waiting and speed-drop signals are scaled down on roads with fewer than
+    ``min_vehicles_full_weight`` vehicles, because one stopped car at a red light
+    is not congestion. The score is the weighted sum (weights add up to 1).
+    Score >= ``medium_threshold`` is MEDIUM, >= ``high_threshold`` is HIGH.
+
+    A level only changes after the new condition has held for
+    ``escalate_after_s`` (worse) or ``clear_after_s`` (better) seconds, so alerts
+    do not flicker with every signal change.
+    """
+
+    weight_occupancy: float = 0.25
+    weight_queue: float = 0.35
+    weight_waiting: float = 0.20
+    weight_speed_drop: float = 0.20
+
+    # Reference values: "1.0" on a signal means this much. The sample network jams at
+    # about 45 % occupancy; a queue over half the road risks blocking the previous
+    # junction; one full signal cycle is 70 s (2 x (30 green + 3 yellow + 2 all-red)),
+    # and waiting longer than a cycle means the queue did not clear on its green.
+    occupancy_ref_pct: float = 45.0
+    queue_ref_fraction: float = 0.5
+    waiting_ref_s: float = 70.0
+    min_vehicles_full_weight: int = 4
+
+    # Queues build during red and clear during green, so a single sample swings with the
+    # signal cycle. The four signals of each road are averaged over this many seconds
+    # before they are scored: one full signal cycle (70 s) of the sample network.
+    # 0 = score every sample as it is.
+    smoothing_window_s: float = 70.0
+
+    # Calibrated (on the smoothed score) with the four sample scenarios: off-peak traffic
+    # is LOW 99 % of the time and never HIGH; the directional peaks and the surge reach
+    # HIGH on 12-15 % of junction time, sustained heavy traffic is mostly LOW/MEDIUM.
+    # Re-calibrate these if the network, signal timing or demand change a lot.
+    medium_threshold: float = 0.25
+    high_threshold: float = 0.50
+
+    escalate_after_s: float = 15.0
+    clear_after_s: float = 30.0
+    # A junction that stays MEDIUM this long is flagged as needing attention
+    # (a HIGH junction is flagged immediately).
+    attention_medium_after_s: float = 60.0
+
+    def __post_init__(self) -> None:
+        weights = (self.weight_occupancy, self.weight_queue,
+                   self.weight_waiting, self.weight_speed_drop)
+        if any(w < 0 for w in weights) or abs(sum(weights) - 1.0) > 1e-6:
+            raise ValueError(f"congestion weights must be >= 0 and add up to 1, got {weights}")
+        if not 0 < self.medium_threshold < self.high_threshold <= 1:
+            raise ValueError("thresholds must satisfy 0 < medium < high <= 1")
+        if min(self.occupancy_ref_pct, self.queue_ref_fraction, self.waiting_ref_s) <= 0:
+            raise ValueError("reference values must be positive")
+        if self.min_vehicles_full_weight < 1:
+            raise ValueError("min_vehicles_full_weight must be >= 1")
+        if min(self.escalate_after_s, self.clear_after_s, self.attention_medium_after_s,
+               self.smoothing_window_s) < 0:
+            raise ValueError("durations must be >= 0")
