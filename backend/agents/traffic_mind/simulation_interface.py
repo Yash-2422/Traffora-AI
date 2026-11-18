@@ -40,6 +40,14 @@ from .exceptions import (
     SimulationNotRunningError,
     SumoNotFoundError,
 )
+from .schemas import (
+    EdgeInfo,
+    JunctionInfo,
+    NetworkTopology,
+    RawEdgeObservation,
+    RawObservation,
+    RawSignalObservation,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +100,7 @@ class SimulationInterface:
         self.config = config or SimulationConfig()
         self._conn: Any = None
         self._ended = False
+        self._topology: Optional[NetworkTopology] = None
 
     # ------------------------------------------------------------------ #
     # Lifecycle
@@ -175,6 +184,7 @@ class SimulationInterface:
             logger.warning("Error while closing TraCI connection: %s", exc)
         finally:
             self._conn = None
+            self._topology = None
             logger.info("Simulation closed.")
 
     def _release_label(self) -> None:
@@ -268,3 +278,123 @@ class SimulationInterface:
             "traffic_light_count": len(lights),
             "traffic_lights": lights,
         }
+
+    # ------------------------------------------------------------------ #
+    # Data for the traffic monitor
+    # ------------------------------------------------------------------ #
+    def read_topology(self) -> NetworkTopology:
+        """Static road network: roads (with the signalised junction they lead
+        into) and signalised junctions (with their incoming roads). Cached."""
+        conn = self._require_running()
+        if self._topology is not None:
+            return self._topology
+
+        try:
+            junctions: List[JunctionInfo] = []
+            junction_of_edge: Dict[str, str] = {}
+            for tls_id in sorted(conn.trafficlight.getIDList()):
+                links = conn.trafficlight.getControlledLinks(tls_id)
+                # each link is (incoming lane, outgoing lane, via lane); lane id = "<edge>_<index>"
+                incoming = sorted({
+                    link[0].rsplit("_", 1)[0] for group in links for link in group
+                })
+                for edge_id in incoming:
+                    junction_of_edge[edge_id] = tls_id
+                logic = conn.trafficlight.getAllProgramLogics(tls_id)[0]
+                junctions.append(JunctionInfo(
+                    junction_id=tls_id,
+                    incoming_edges=incoming,
+                    phase_count=len(logic.phases),
+                ))
+
+            edges: List[EdgeInfo] = []
+            for edge_id in self._edge_ids():
+                first_lane = f"{edge_id}_0"
+                edges.append(EdgeInfo(
+                    edge_id=edge_id,
+                    length_m=float(conn.lane.getLength(first_lane)),
+                    lane_count=int(conn.edge.getLaneNumber(edge_id)),
+                    speed_limit_mps=float(conn.lane.getMaxSpeed(first_lane)),
+                    junction_id=junction_of_edge.get(edge_id),
+                ))
+            self._topology = NetworkTopology(edges=edges, junctions=junctions)
+        except (FatalTraCIError, TraCIException) as exc:
+            self._conn = None
+            raise SimulationConnectionError(f"Lost connection to SUMO: {exc}") from exc
+        return self._topology
+
+    def read_observation(self) -> RawObservation:
+        """Raw per-road and per-signal readings at the current simulation time."""
+        conn = self._require_running()
+        topology = self.read_topology()
+        try:
+            edges: List[RawEdgeObservation] = []
+            for info in topology.edges:
+                edge_id = info.edge_id
+                vehicle_ids = list(conn.edge.getLastStepVehicleIDs(edge_id))
+                halting = int(conn.edge.getLastStepHaltingNumber(edge_id))
+                edges.append(RawEdgeObservation(
+                    edge_id=edge_id,
+                    vehicle_ids=vehicle_ids,
+                    vehicle_count=len(vehicle_ids),
+                    halting_count=halting,
+                    # TraCI reports occupancy as a fraction (0..1); we expose percent.
+                    occupancy_pct=min(
+                        100.0, max(0.0, float(conn.edge.getLastStepOccupancy(edge_id)) * 100.0)
+                    ),
+                    mean_speed_mps=max(0.0, float(conn.edge.getLastStepMeanSpeed(edge_id))),
+                    waiting_time_sum_s=max(0.0, float(conn.edge.getWaitingTime(edge_id))),
+                    queue_length_m=self._queue_length_m(info) if halting > 0 else 0.0,
+                ))
+
+            now = float(conn.simulation.getTime())
+            signals = [
+                RawSignalObservation(
+                    junction_id=j.junction_id,
+                    phase_index=int(conn.trafficlight.getPhase(j.junction_id)),
+                    phase_remaining_s=max(
+                        0.0, float(conn.trafficlight.getNextSwitch(j.junction_id)) - now
+                    ),
+                )
+                for j in topology.junctions
+            ]
+            return RawObservation(
+                time_s=now,
+                total_vehicles=int(conn.vehicle.getIDCount()),
+                edges=edges,
+                signals=signals,
+            )
+        except (FatalTraCIError, TraCIException) as exc:
+            self._conn = None
+            raise SimulationConnectionError(f"Lost connection to SUMO: {exc}") from exc
+
+    def _queue_length_m(self, info: EdgeInfo) -> float:
+        """Length (m) of the queue measured back from the stop line.
+
+        Stopped vehicles form one queue when the first one is close to the
+        stop line and each next one is within ``queue_gap_m`` of the previous.
+        The longest queue over the road's lanes is reported.
+        """
+        conn = self._require_running()
+        gap = self.config.queue_gap_m
+        longest = 0.0
+        for lane_index in range(info.lane_count):
+            lane_id = f"{info.edge_id}_{lane_index}"
+            positions = sorted(
+                (
+                    conn.vehicle.getLanePosition(vid)
+                    for vid in conn.lane.getLastStepVehicleIDs(lane_id)
+                    if conn.vehicle.getSpeed(vid) < 0.1
+                ),
+                reverse=True,  # front of the queue first
+            )
+            if not positions or info.length_m - positions[0] > gap:
+                continue  # nothing stopped at the stop line
+            back = positions[0]
+            for pos in positions[1:]:
+                if back - pos > gap:
+                    break
+                back = pos
+            length = (info.length_m - back) + self.config.vehicle_length_m
+            longest = max(longest, min(length, info.length_m))
+        return longest
