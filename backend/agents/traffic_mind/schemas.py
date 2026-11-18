@@ -14,7 +14,8 @@ Later steps add congestion, prediction and signal models to this module.
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from enum import Enum
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -22,7 +23,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 class _Model(BaseModel):
     """Base model: reject unknown fields so typos in input data are caught."""
 
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
 
     def to_dict(self) -> Dict[str, Any]:
         """JSON-serializable dict."""
@@ -112,46 +113,161 @@ class RawObservation(_Model):
 class EdgeMetrics(_Model):
     edge_id: str
     junction_id: Optional[str] = None
-    length_m: float
-    lane_count: int
-    speed_limit_mps: float
-    vehicle_count: int
-    density_veh_per_km: float          # vehicles per km of road (all lanes)
-    density_veh_per_km_lane: float     # vehicles per km per lane
-    occupancy_pct: float
-    queue_length_veh: int              # stopped vehicles
-    queue_length_m: float              # length of the queue measured from the stop line
-    mean_waiting_time_s: float         # average over vehicles currently on the road
-    mean_speed_mps: float
-    speed_ratio: float                 # mean speed / speed limit, 0..1
-    flow_veh_per_hour: float           # vehicles entering the road (rolling window)
+    length_m: float = Field(gt=0)
+    lane_count: int = Field(ge=1)
+    speed_limit_mps: float = Field(gt=0)
+    vehicle_count: int = Field(ge=0)
+    density_veh_per_km: float = Field(ge=0)          # vehicles per km of road (all lanes)
+    density_veh_per_km_lane: float = Field(ge=0)     # vehicles per km per lane
+    occupancy_pct: float = Field(ge=0, le=100)
+    queue_length_veh: int = Field(ge=0)              # stopped vehicles
+    queue_length_m: float = Field(ge=0)              # queue length measured from the stop line
+    mean_waiting_time_s: float = Field(ge=0)         # average over vehicles currently on the road
+    mean_speed_mps: float = Field(ge=0)
+    speed_ratio: float = Field(ge=0, le=1)           # mean speed / speed limit
+    flow_veh_per_hour: float = Field(ge=0)           # vehicles entering the road (rolling window)
+
+    @model_validator(mode="after")
+    def _check_consistency(self) -> "EdgeMetrics":
+        if self.queue_length_veh > self.vehicle_count:
+            raise ValueError(
+                f"edge {self.edge_id}: queue_length_veh ({self.queue_length_veh}) "
+                f"exceeds vehicle_count ({self.vehicle_count})"
+            )
+        if self.queue_length_m > self.length_m + 1e-6:
+            raise ValueError(
+                f"edge {self.edge_id}: queue_length_m ({self.queue_length_m}) "
+                f"exceeds the road length ({self.length_m})"
+            )
+        return self
 
 
 class JunctionMetrics(_Model):
     junction_id: str
     incoming_edges: List[str]
-    vehicle_count: int                 # vehicles on the incoming roads
-    queue_length_veh: int
-    max_queue_length_m: float
-    mean_waiting_time_s: float         # vehicle-weighted average
-    max_occupancy_pct: float
-    flow_veh_per_hour: float           # sum over incoming roads
-    current_phase: Optional[int] = None
-    phase_remaining_s: Optional[float] = None
+    vehicle_count: int = Field(ge=0)                 # vehicles on the incoming roads
+    queue_length_veh: int = Field(ge=0)
+    max_queue_length_m: float = Field(ge=0)
+    mean_waiting_time_s: float = Field(ge=0)         # vehicle-weighted average
+    max_occupancy_pct: float = Field(ge=0, le=100)
+    flow_veh_per_hour: float = Field(ge=0)           # sum over incoming roads
+    current_phase: Optional[int] = Field(default=None, ge=0)
+    phase_remaining_s: Optional[float] = Field(default=None, ge=0)
 
 
 class NetworkMetrics(_Model):
-    total_vehicles: int
-    halting_vehicles: int
-    mean_waiting_time_s: float
-    mean_speed_ratio: float
+    total_vehicles: int = Field(ge=0)
+    halting_vehicles: int = Field(ge=0)
+    mean_waiting_time_s: float = Field(ge=0)
+    mean_speed_ratio: float = Field(ge=0, le=1)
 
 
 class TrafficSnapshot(_Model):
     """The result of ``get_traffic_status()``."""
 
     status: str = "ok"
-    timestamp_s: float
+    timestamp_s: float = Field(ge=0)
     network: NetworkMetrics
     junctions: List[JunctionMetrics]
     edges: List[EdgeMetrics]
+
+
+# --------------------------------------------------------------------------- #
+# Congestion detection
+# --------------------------------------------------------------------------- #
+class CongestionLevel(str, Enum):
+    """Congestion class. Serialises to "LOW", "MEDIUM" or "HIGH"."""
+
+    LOW = "LOW"
+    MEDIUM = "MEDIUM"
+    HIGH = "HIGH"
+
+    @property
+    def rank(self) -> int:
+        return _LEVEL_RANK[self]
+
+
+_LEVEL_RANK = {CongestionLevel.LOW: 0, CongestionLevel.MEDIUM: 1, CongestionLevel.HIGH: 2}
+
+
+class CongestionFactors(_Model):
+    """The four measured signals behind a congestion score, each scaled to 0..1."""
+
+    occupancy: float = Field(ge=0, le=1)
+    queue: float = Field(ge=0, le=1)
+    waiting: float = Field(ge=0, le=1)
+    speed_drop: float = Field(ge=0, le=1)
+
+
+class EdgeCongestion(_Model):
+    edge_id: str
+    junction_id: Optional[str] = None
+    score: float = Field(ge=0, le=1)
+    raw_level: CongestionLevel          # level of the current score
+    level: CongestionLevel              # after the persistence rule (use this one)
+    factors: CongestionFactors
+    dominant_factor: str
+    vehicle_count: int
+    queue_length_veh: int
+    queue_length_m: float
+
+
+class JunctionCongestion(_Model):
+    junction_id: str
+    score: float = Field(ge=0, le=1)    # score of the worst approach road
+    raw_level: CongestionLevel
+    level: CongestionLevel
+    since_s: float                      # simulation time the current level started
+    worst_edge_id: Optional[str] = None
+    dominant_factor: str
+    factors: CongestionFactors          # factors of the worst approach road
+    vehicle_count: int
+    queue_length_veh: int
+    max_queue_length_m: float
+    mean_waiting_time_s: float
+    requires_attention: bool
+    attention_reason: Optional[str] = None
+
+
+class CongestionAlert(_Model):
+    alert_id: str                       # stays the same while the alert stays active
+    entity_type: Literal["junction", "road"]
+    entity_id: str
+    level: CongestionLevel
+    severity: Literal["warning", "critical"]
+    score: float
+    since_s: float
+    is_new: bool                        # True only in the update where the level was reached
+    message: str
+
+
+class AttentionJunction(_Model):
+    rank: int = Field(ge=1)             # 1 = needs attention most
+    junction_id: str
+    level: CongestionLevel
+    score: float
+    reason: str
+    worst_edge_id: Optional[str] = None
+    max_queue_length_m: float
+    mean_waiting_time_s: float
+
+
+class CongestionSummary(_Model):
+    junctions_low: int
+    junctions_medium: int
+    junctions_high: int
+    roads_low: int
+    roads_medium: int
+    roads_high: int
+
+
+class CongestionReport(_Model):
+    """The result of ``detect_congestion()``."""
+
+    status: str = "ok"
+    timestamp_s: float
+    summary: CongestionSummary
+    junctions: List[JunctionCongestion]
+    edges: List[EdgeCongestion]
+    alerts: List[CongestionAlert]
+    attention_junctions: List[AttentionJunction]
