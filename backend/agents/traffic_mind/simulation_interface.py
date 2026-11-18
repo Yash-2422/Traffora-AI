@@ -344,7 +344,7 @@ class SimulationInterface:
                     ),
                     mean_speed_mps=max(0.0, float(conn.edge.getLastStepMeanSpeed(edge_id))),
                     waiting_time_sum_s=max(0.0, float(conn.edge.getWaitingTime(edge_id))),
-                    queue_length_m=self._queue_length_m(info) if halting > 0 else 0.0,
+                    queue_length_m=self._queue_length_m(info) if vehicle_ids else 0.0,
                 ))
 
             now = float(conn.simulation.getTime())
@@ -371,12 +371,17 @@ class SimulationInterface:
     def _queue_length_m(self, info: EdgeInfo) -> float:
         """Length (m) of the queue measured back from the stop line.
 
-        Stopped vehicles form one queue when the first one is close to the
-        stop line and each next one is within ``queue_gap_m`` of the previous.
-        The longest queue over the road's lanes is reported.
+        Slow vehicles (below ``queue_speed_mps``) form one queue when the first
+        one is within ``queue_head_tolerance_m`` of the stop line and each next
+        one is within ``queue_gap_m`` of the previous. The longest queue over
+        the road's lanes is reported. Both tolerances exist because a queue
+        that is discharging has creeping cars at its head, and cars that have
+        already pulled away in front of the standing queue.
         """
         conn = self._require_running()
         gap = self.config.queue_gap_m
+        head_tolerance = self.config.queue_head_tolerance_m
+        max_speed = self.config.queue_speed_mps
         longest = 0.0
         for lane_index in range(info.lane_count):
             lane_id = f"{info.edge_id}_{lane_index}"
@@ -384,12 +389,12 @@ class SimulationInterface:
                 (
                     conn.vehicle.getLanePosition(vid)
                     for vid in conn.lane.getLastStepVehicleIDs(lane_id)
-                    if conn.vehicle.getSpeed(vid) < 0.1
+                    if conn.vehicle.getSpeed(vid) < max_speed
                 ),
                 reverse=True,  # front of the queue first
             )
-            if not positions or info.length_m - positions[0] > gap:
-                continue  # nothing stopped at the stop line
+            if not positions or info.length_m - positions[0] > head_tolerance:
+                continue  # no slow vehicle near the stop line
             back = positions[0]
             for pos in positions[1:]:
                 if back - pos > gap:
