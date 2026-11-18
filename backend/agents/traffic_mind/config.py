@@ -45,8 +45,16 @@ class SimulationConfig:
     end_time: int = 3600
     connect_retries: int = 3
     label: str = "traffic_mind"
-    # Queue measurement: vehicles stopped (< 0.1 m/s) whose spacing is at most
-    # ``queue_gap_m`` form one queue; ``vehicle_length_m`` is added for the last car.
+    # Queue measurement (queue length in metres): vehicles slower than
+    # ``queue_speed_mps`` whose spacing is at most ``queue_gap_m`` form one queue,
+    # starting at the stop line; ``vehicle_length_m`` is added for the last car.
+    # The speed limit is above SUMO's "halting" threshold (0.1 m/s) on purpose:
+    # while a queue discharges, its first cars creep at 0.3-1 m/s and would
+    # otherwise cut the queue short.
+    queue_speed_mps: float = 1.5
+    # The first slow vehicle may be this far from the stop line: cars at the head of
+    # a discharging queue have already pulled away while the standing queue is behind.
+    queue_head_tolerance_m: float = 40.0
     queue_gap_m: float = 10.0
     vehicle_length_m: float = 5.0
 
