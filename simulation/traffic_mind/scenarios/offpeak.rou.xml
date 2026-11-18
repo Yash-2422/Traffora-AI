@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<routes>
+  <vType id="car" vClass="passenger" length="5.0" minGap="2.5" accel="2.6" decel="4.5" sigma="0.5" tau="1.0" maxSpeed="13.89" />
+  <flow id="offpeak_bottom0A0_0" type="car" begin="0" end="3600" probability="0.020000" from="bottom0A0" to="A2top0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_bottom0A0_1" type="car" begin="0" end="3600" probability="0.006667" from="bottom0A0" to="A1left1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_bottom0A0_2" type="car" begin="0" end="3600" probability="0.006667" from="bottom0A0" to="C0right0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_bottom1B0_0" type="car" begin="0" end="3600" probability="0.020000" from="bottom1B0" to="B2top1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_bottom1B0_1" type="car" begin="0" end="3600" probability="0.006667" from="bottom1B0" to="A1left1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_bottom1B0_2" type="car" begin="0" end="3600" probability="0.006667" from="bottom1B0" to="C2right2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_bottom2C0_0" type="car" begin="0" end="3600" probability="0.020000" from="bottom2C0" to="C2top2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_bottom2C0_1" type="car" begin="0" end="3600" probability="0.006667" from="bottom2C0" to="A0left0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_bottom2C0_2" type="car" begin="0" end="3600" probability="0.006667" from="bottom2C0" to="C0right0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left0A0_0" type="car" begin="0" end="3600" probability="0.020000" from="left0A0" to="C0right0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left0A0_1" type="car" begin="0" end="3600" probability="0.006667" from="left0A0" to="C2top2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left0A0_2" type="car" begin="0" end="3600" probability="0.006667" from="left0A0" to="A0bottom0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left1A1_0" type="car" begin="0" end="3600" probability="0.020000" from="left1A1" to="C1right1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left1A1_1" type="car" begin="0" end="3600" probability="0.006667" from="left1A1" to="B2top1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left1A1_2" type="car" begin="0" end="3600" probability="0.006667" from="left1A1" to="C0bottom2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left2A2_0" type="car" begin="0" end="3600" probability="0.020000" from="left2A2" to="C2right2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left2A2_1" type="car" begin="0" end="3600" probability="0.006667" from="left2A2" to="A2top0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_left2A2_2" type="car" begin="0" end="3600" probability="0.006667" from="left2A2" to="C0bottom2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right0C0_0" type="car" begin="0" end="3600" probability="0.020000" from="right0C0" to="A0left0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right0C0_1" type="car" begin="0" end="3600" probability="0.006667" from="right0C0" to="A2top0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right0C0_2" type="car" begin="0" end="3600" probability="0.006667" from="right0C0" to="A0bottom0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right1C1_0" type="car" begin="0" end="3600" probability="0.020000" from="right1C1" to="A1left1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right1C1_1" type="car" begin="0" end="3600" probability="0.006667" from="right1C1" to="A2top0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right1C1_2" type="car" begin="0" end="3600" probability="0.006667" from="right1C1" to="B0bottom1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right2C2_0" type="car" begin="0" end="3600" probability="0.020000" from="right2C2" to="A2left2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right2C2_1" type="car" begin="0" end="3600" probability="0.006667" from="right2C2" to="B2top1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_right2C2_2" type="car" begin="0" end="3600" probability="0.006667" from="right2C2" to="A0bottom0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top0A2_0" type="car" begin="0" end="3600" probability="0.020000" from="top0A2" to="A0bottom0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top0A2_1" type="car" begin="0" end="3600" probability="0.006667" from="top0A2" to="A0left0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top0A2_2" type="car" begin="0" end="3600" probability="0.006667" from="top0A2" to="C0right0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top1B2_0" type="car" begin="0" end="3600" probability="0.020000" from="top1B2" to="B0bottom1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top1B2_1" type="car" begin="0" end="3600" probability="0.006667" from="top1B2" to="A2left2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top1B2_2" type="car" begin="0" end="3600" probability="0.006667" from="top1B2" to="C1right1" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top2C2_0" type="car" begin="0" end="3600" probability="0.020000" from="top2C2" to="C0bottom2" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top2C2_1" type="car" begin="0" end="3600" probability="0.006667" from="top2C2" to="A0left0" departLane="best" departSpeed="max" />
+  <flow id="offpeak_top2C2_2" type="car" begin="0" end="3600" probability="0.006667" from="top2C2" to="C2right2" departLane="best" departSpeed="max" />
+</routes>
