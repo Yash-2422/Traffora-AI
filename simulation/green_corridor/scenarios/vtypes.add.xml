@@ -1,0 +1,6 @@
+<additional>
+    <vType id="car" vClass="passenger" accel="2.6" decel="4.5" sigma="0.5" length="4.5" maxSpeed="16.67" color="150,150,150"/>
+    <vType id="ambulance" vClass="emergency" accel="3.5" decel="5.0" sigma="0.2" length="6.0"
+           maxSpeed="20.84" speedFactor="1.0"
+           guiShape="emergency" color="255,0,0"/>
+</additional>

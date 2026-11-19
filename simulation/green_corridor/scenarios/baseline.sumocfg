@@ -1,0 +1,17 @@
+<configuration>
+    <input>
+        <net-file value="../sample_network/grid.net.xml"/>
+        <route-files value="background.rou.xml,ambulance.rou.xml"/>
+        <additional-files value="vtypes.add.xml,hospital.add.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="1800"/>
+    </time>
+    <processing>
+        <time-to-teleport value="-1"/>
+    </processing>
+    <output>
+        <tripinfo-output value="../results/baseline_tripinfo.xml"/>
+    </output>
+</configuration>

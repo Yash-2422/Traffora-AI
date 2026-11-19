@@ -1,0 +1,4 @@
+<routes>
+    <trip id="amb_1" type="ambulance" depart="120.00"
+          from="A0A1" to="E3E4" departLane="best" departSpeed="max"/>
+</routes>

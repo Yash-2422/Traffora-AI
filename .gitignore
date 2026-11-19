@@ -17,3 +17,5 @@ htmlcov/
 
 # IDE
 .vscode/
+
+simulation/green_corridor/results/
