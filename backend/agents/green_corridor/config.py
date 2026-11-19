@@ -27,3 +27,9 @@ EMERGENCY_ID_PREFIXES = ("amb_", "ambulance")  # fallback match on vehicle id
 # --- Scenario defaults (Step 3) ---------------------------------------------
 SCENARIO_META_FILENAME = "scenario.json"
 AMBULANCE_VTYPE_ID = EMERGENCY_VTYPE_IDS[0]
+
+# --- Detection / tracking (Step 4) --------------------------------------------
+STOPPED_SPEED_MPS = 0.1          # below this the vehicle is considered stopped
+ACCEL_THRESHOLD_MPS2 = 0.3       # |acceleration| above this -> accelerating/decelerating
+TRACK_HISTORY_LEN = 600          # max trail points kept per vehicle (for visualisation)
+SUMO_INVALID_DOUBLE = -1073741824.0  # TraCI's "no value" marker
