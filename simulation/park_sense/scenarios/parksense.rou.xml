@@ -1,0 +1,28 @@
+<routes>
+    <vType id="car" accel="2.6" decel="4.5" length="5" maxSpeed="13.9"/>
+
+    <route id="r_A" edges="e_N3_N6 e_N6_N7"/>
+    <route id="r_B" edges="e_N2_N3 e_N3_N4"/>
+    <route id="r_C" edges="e_N2_N5 e_N5_N6"/>
+    <route id="r_D" edges="e_N5_N8 e_N8_N9"/>
+    <route id="r_E" edges="e_N3_N4 e_N4_N7"/>
+
+    <vehicle id="v01" type="car" route="r_B" depart="0">  <stop parkingArea="PA_B" duration="400"/> </vehicle>
+    <vehicle id="v02" type="car" route="r_A" depart="5">  <stop parkingArea="PA_A" duration="500"/> </vehicle>
+    <vehicle id="v03" type="car" route="r_C" depart="10"> <stop parkingArea="PA_C" duration="300"/> </vehicle>
+    <vehicle id="v04" type="car" route="r_D" depart="15"> <stop parkingArea="PA_D" duration="600"/> </vehicle>
+    <vehicle id="v05" type="car" route="r_E" depart="20"> <stop parkingArea="PA_E" duration="350"/> </vehicle>
+    <vehicle id="v06" type="car" route="r_B" depart="30"> <stop parkingArea="PA_B" duration="450"/> </vehicle>
+    <vehicle id="v07" type="car" route="r_A" depart="40"> <stop parkingArea="PA_A" duration="250"/> </vehicle>
+    <vehicle id="v08" type="car" route="r_C" depart="50"> <stop parkingArea="PA_C" duration="500"/> </vehicle>
+    <vehicle id="v09" type="car" route="r_D" depart="60"> <stop parkingArea="PA_D" duration="300"/> </vehicle>
+    <vehicle id="v10" type="car" route="r_A" depart="70"> <stop parkingArea="PA_A" duration="600"/> </vehicle>
+    <vehicle id="v11" type="car" route="r_B" depart="80"> <stop parkingArea="PA_B" duration="200"/> </vehicle>
+    <vehicle id="v12" type="car" route="r_C" depart="90"> <stop parkingArea="PA_C" duration="350"/> </vehicle>
+    <vehicle id="v13" type="car" route="r_A" depart="100"><stop parkingArea="PA_A" duration="400"/> </vehicle>
+    <vehicle id="v14" type="car" route="r_E" depart="120"><stop parkingArea="PA_E" duration="500"/> </vehicle>
+    <vehicle id="v15" type="car" route="r_D" depart="140"><stop parkingArea="PA_D" duration="450"/> </vehicle>
+    <vehicle id="v16" type="car" route="r_B" depart="160"><stop parkingArea="PA_B" duration="300"/> </vehicle>
+    <vehicle id="v17" type="car" route="r_A" depart="180"><stop parkingArea="PA_A" duration="300"/> </vehicle>
+    <vehicle id="v18" type="car" route="r_C" depart="200"><stop parkingArea="PA_C" duration="250"/> </vehicle>
+</routes>
