@@ -80,3 +80,55 @@ def fail(code: str, message: str) -> Dict[str, Any]:
     """Failure envelope. Public functions never raise; they return this."""
     return {"success": False, "data": None, "error": {"code": code, "message": message},
             "timestamp": _now_iso()}
+
+
+@dataclass
+class RouteIntersection:
+    """A signalised junction the route passes through."""
+    tls_id: str
+    approach_edge: str               # edge the vehicle is on when it reaches the junction
+    exit_edge: str                   # next edge after the junction
+    route_index: int                 # index of approach_edge within the route
+    distance_from_start_m: float     # approximate (edge lengths scaled to SUMO's route length)
+    eta_from_start_s: float          # estimated, excludes waiting at signals
+    x: Optional[float] = None
+    y: Optional[float] = None
+
+
+@dataclass
+class EmergencyRoute:
+    origin_edge: str
+    destination_edge: str
+    vehicle_type: str
+    edges: List[str]
+    num_edges: int
+    distance_m: float                # SUMO route length (includes junction crossings)
+    estimated_travel_time_s: float   # live-traffic estimate; excludes signal waiting (measured in Step 8)
+    free_flow_travel_time_s: float   # same edges at the speed limit
+    congestion_factor: float         # estimated / free_flow
+    intersections: List[RouteIntersection]
+    num_intersections: int
+    routing_mode: str
+    computed_at_sim_time_s: float
+    reason: Optional[str] = None     # None for first plan, else e.g. "ROUTE_BLOCKED"
+    applied_to_vehicle: Optional[str] = None
+
+    def to_dict(self) -> Dict[str, Any]:
+        return to_jsonable(asdict(self))
+
+
+@dataclass
+class RouteCheck:
+    """Result of monitoring a vehicle's current route against present conditions."""
+    vehicle_id: str
+    sim_time_s: float
+    needs_recalculation: bool
+    reason: Optional[str]            # None | "ROUTE_BLOCKED" | "FASTER_ALTERNATIVE"
+    blocked_edges: List[str]
+    alternative_available: bool
+    current_remaining_eta_s: float
+    best_alternative_eta_s: Optional[float]
+    estimated_gain_s: Optional[float]
+
+    def to_dict(self) -> Dict[str, Any]:
+        return to_jsonable(asdict(self))

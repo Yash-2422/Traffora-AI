@@ -16,8 +16,8 @@ from dataclasses import replace
 from typing import Any, Deque, Dict, List, Optional, Sequence
 
 from . import config
-from .connection import SumoConnectionError
-from .schemas import EmergencyStatus, EmergencyVehicleState, Movement, fail, ok
+from .api_utils import guarded as _guarded
+from .schemas import EmergencyStatus, EmergencyVehicleState, Movement
 
 logger = logging.getLogger(__name__)
 
@@ -183,22 +183,6 @@ class EmergencyDetector:
 
 
 # ---- public, orchestrator-facing functions ------------------------------------
-def _guarded(fn):
-    """Run fn and wrap the result/any failure in the standard envelope. Never raises."""
-    try:
-        return ok(fn())
-    except (DetectorError, SumoConnectionError) as exc:
-        return fail(exc.code, exc.message)
-    except Exception as exc:
-        name = type(exc).__name__
-        if name == "FatalTraCIError" or isinstance(exc, (OSError, EOFError)):  # incl. broken socket
-            return fail("CONNECTION_LOST", f"SUMO connection lost: {exc}")
-        if name == "TraCIException":
-            return fail("TRACI_ERROR", str(exc))
-        logger.exception("Unexpected error")
-        return fail("UNEXPECTED_ERROR", f"{name}: {exc}")
-
-
 def detect_emergency_vehicle(detector: EmergencyDetector) -> Dict[str, Any]:
     """Find all active emergency vehicles.
 

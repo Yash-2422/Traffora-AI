@@ -33,3 +33,10 @@ STOPPED_SPEED_MPS = 0.1          # below this the vehicle is considered stopped
 ACCEL_THRESHOLD_MPS2 = 0.3       # |acceleration| above this -> accelerating/decelerating
 TRACK_HISTORY_LEN = 600          # max trail points kept per vehicle (for visualisation)
 SUMO_INVALID_DOUBLE = -1073741824.0  # TraCI's "no value" marker
+
+# --- Route planning (Step 5) ----------------------------------------------------
+ALLOW_U_TURNS = False             # exclude U-turn connections from emergency routes
+RECALC_MIN_GAIN_S = 20.0          # re-route only if the alternative saves at least this many seconds...
+RECALC_MIN_GAIN_FRACTION = 0.15   # ...and at least this fraction of the current remaining ETA
+MAX_EDGE_DELAY_FACTOR = 5.0       # cap per-edge live travel time at this multiple of free-flow
+HARMONIC_MIN_SPEED_MPS = 0.5      # floor for a vehicle's speed when averaging (a standing car counts as 0.5 m/s)
