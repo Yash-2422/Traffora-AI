@@ -23,3 +23,7 @@ TRACI_START_TIMEOUT_S = 20    # seconds to wait for SUMO to accept the TraCI con
 EMERGENCY_VTYPE_IDS = ("ambulance",)       # SUMO vType ids treated as emergency
 EMERGENCY_VCLASS = "emergency"             # SUMO vClass treated as emergency
 EMERGENCY_ID_PREFIXES = ("amb_", "ambulance")  # fallback match on vehicle id
+
+# --- Scenario defaults (Step 3) ---------------------------------------------
+SCENARIO_META_FILENAME = "scenario.json"
+AMBULANCE_VTYPE_ID = EMERGENCY_VTYPE_IDS[0]
