@@ -32,3 +32,27 @@ def smoke_cfg(tmp_path):
                    '<route-files value="t.rou.xml"/></input>'
                    '<time><begin value="0"/><end value="200"/></time></configuration>')
     return cfg
+
+
+# ---- shared fixtures for detection / tracking tests (Step 4) ----------------------------------
+@pytest.fixture(scope="session")
+def scenario(tmp_path_factory):
+    """A small but real scenario: signalised 5x5 grid, 40 cars, ambulance departing at t=20 s."""
+    from backend.agents.green_corridor.scenario_builder import ScenarioSpec, build_scenario
+    d = tmp_path_factory.mktemp("gc_scenario")
+    spec = ScenarioSpec(background_vehicles=40, background_window_s=100,
+                        ambulance_depart_s=20, sim_end_s=600)
+    return build_scenario(spec, d / "net", d / "scn", d / "res")
+
+
+@pytest.fixture
+def sim(scenario):
+    """A running baseline simulation plus an EmergencyDetector bound to it."""
+    from backend.agents.green_corridor.connection import SumoConnection
+    from backend.agents.green_corridor.emergency_detector import EmergencyDetector
+    sc = SumoConnection()
+    sc.start(scenario.baseline_cfg)
+    try:
+        yield sc, EmergencyDetector(sc)
+    finally:
+        sc.close()
