@@ -1,0 +1,13 @@
+{
+    "city": "TRAFORRA Demo City",
+    "destinations": {
+      "hospital": { "name": "City Hospital", "x": 400, "y": 200 }
+    },
+    "zones": [
+      { "zone_id": "PA_A", "name": "Hospital Annex Parking",  "capacity": 6,  "x": 510, "y": 200, "lane": "e_N6_N7_0" },
+      { "zone_id": "PA_B", "name": "City Mall Parking",       "capacity": 12, "x": 550, "y": 400, "lane": "e_N3_N4_0" },
+      { "zone_id": "PA_C", "name": "Market Parking",          "capacity": 8,  "x": 200, "y": 200, "lane": "e_N5_N6_0" },
+      { "zone_id": "PA_D", "name": "Railway Station Parking", "capacity": 15, "x": 160, "y": 0,   "lane": "e_N8_N9_0" },
+      { "zone_id": "PA_E", "name": "Stadium Parking",         "capacity": 10, "x": 800, "y": 300, "lane": "e_N4_N7_0" }
+    ]
+  }
