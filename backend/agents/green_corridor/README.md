@@ -29,3 +29,13 @@ Request -> validate against live state (not yellow/all-red, min green elapsed, t
 junction's own program, no conflicting active request) -> switch only through the program's own
 yellow/clearance sequence -> ambulance passes -> restore request -> normal program resumes.
 Custom phase strings are never written.
+
+## Step 3: build the scenario (run inside WSL/Ubuntu if Windows blocks SUMO executables)
+```
+python -m backend.agents.green_corridor.scenario_builder          # defaults: 5x5 grid, 300 background cars, seed 42
+python -m backend.agents.green_corridor.scenario_builder --seed 7 --background-vehicles 500 --ambulance-depart 90
+```
+Generates `simulation/green_corridor/sample_network/grid.net.xml`, `scenarios/*.xml`, `baseline.sumocfg`,
+`priority.sumocfg` and `scenario.json` (read by the agent in later steps). Edge ids: node `A0` -> `A1` is edge `A0A1`.
+Same seed -> identical traffic, so baseline and priority runs are directly comparable.
+Add `simulation/green_corridor/results/` to `.gitignore` (SUMO writes tripinfo files there).
