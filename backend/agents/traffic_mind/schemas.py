@@ -271,3 +271,61 @@ class CongestionReport(_Model):
     edges: List[EdgeCongestion]
     alerts: List[CongestionAlert]
     attention_junctions: List[AttentionJunction]
+
+
+# --------------------------------------------------------------------------- #
+# Traffic prediction
+# --------------------------------------------------------------------------- #
+class ModelInfo(_Model):
+    """Describes the trained model behind a prediction."""
+
+    name: str
+    horizon_s: int
+    feature_count: int
+    trained_at: Optional[str] = None
+    training_rows: Optional[int] = None
+    training_runs: Optional[int] = None
+    test_macro_f1: Optional[float] = None
+
+
+class JunctionPrediction(_Model):
+    junction_id: str
+    current_level: CongestionLevel
+    current_score: float = Field(ge=0, le=1)
+    predicted_level: CongestionLevel            # level expected ``horizon_s`` seconds ahead
+    probabilities: Dict[str, float]             # LOW / MEDIUM / HIGH, adds up to 1
+    confidence: float = Field(ge=0, le=1)       # probability of the predicted level
+    expected_change: Literal["worsening", "steady", "improving"]
+    method: Literal["ml", "persistence"]
+
+    @model_validator(mode="after")
+    def _check_probabilities(self) -> "JunctionPrediction":
+        if set(self.probabilities) != {"LOW", "MEDIUM", "HIGH"}:
+            raise ValueError("probabilities must have the keys LOW, MEDIUM and HIGH")
+        if any(not 0.0 <= p <= 1.0 for p in self.probabilities.values()):
+            raise ValueError("probabilities must be between 0 and 1")
+        if abs(sum(self.probabilities.values()) - 1.0) > 1e-3:
+            raise ValueError("probabilities must add up to 1")
+        return self
+
+
+class EarlyWarning(_Model):
+    junction_id: str
+    current_level: CongestionLevel
+    predicted_level: CongestionLevel
+    confidence: float = Field(ge=0, le=1)
+    message: str
+
+
+class PredictionReport(_Model):
+    """The result of ``predict_congestion()``."""
+
+    status: str = "ok"
+    timestamp_s: float = Field(ge=0)
+    horizon_s: int = Field(gt=0)
+    method: Literal["ml", "persistence"]
+    model: Optional[ModelInfo] = None
+    history_available_s: float = Field(ge=0)
+    predictions: List[JunctionPrediction]
+    early_warnings: List[EarlyWarning]
+    notes: List[str] = Field(default_factory=list)
