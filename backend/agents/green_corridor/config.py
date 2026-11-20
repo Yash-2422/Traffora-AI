@@ -40,3 +40,7 @@ RECALC_MIN_GAIN_S = 20.0          # re-route only if the alternative saves at le
 RECALC_MIN_GAIN_FRACTION = 0.15   # ...and at least this fraction of the current remaining ETA
 MAX_EDGE_DELAY_FACTOR = 5.0       # cap per-edge live travel time at this multiple of free-flow
 HARMONIC_MIN_SPEED_MPS = 0.5      # floor for a vehicle's speed when averaging (a standing car counts as 0.5 m/s)
+
+# --- Intersection monitoring (Step 6) ---------------------------------------------
+INTERSECTION_LOOKAHEAD_M = 600.0     # default look-ahead for identify_upcoming_intersections()
+WAIT_ATTRIBUTION_ZONE_M = 100.0      # stopped time is attributed to the next signal if its stop line is this close 

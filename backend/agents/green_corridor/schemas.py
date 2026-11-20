@@ -132,3 +132,65 @@ class RouteCheck:
 
     def to_dict(self) -> Dict[str, Any]:
         return to_jsonable(asdict(self))
+
+
+@dataclass
+class SignalSnapshot:
+    """State of one traffic light at one simulation step, from the ambulance's point of view."""
+    tls_id: str
+    program_id: str
+    phase_index: int
+    num_phases: int
+    phase_state: str                      # one character per controlled link, e.g. "GggrrrGGg"
+    phase_kind: str                       # "GREEN" | "CLEARANCE" (any yellow) | "ALL_RED"
+    phase_remaining_s: float
+    next_switch_time_s: float
+    ambulance_link_index: Optional[int]   # index of the ambulance's movement inside phase_state
+    ambulance_signal: Optional[str]       # "GREEN" | "YELLOW" | "RED" | "RED_YELLOW" | "OFF" | "UNKNOWN"
+    green_phase_indices: List[int]        # phases of the program in which the ambulance's link is green
+
+
+@dataclass
+class UpcomingIntersection:
+    order: int                            # 1 = next intersection
+    tls_id: str
+    approach_edge: str
+    exit_edge: str
+    route_index: int
+    distance_m: float                     # to the stop line along the route (SUMO getNextTLS)
+    eta_s: float                          # live-traffic estimate to the stop line, excludes signal waiting
+    eta_at_current_speed_s: Optional[float]   # distance / current speed (None when almost stopped)
+    x: Optional[float]
+    y: Optional[float]
+    signal: Optional[SignalSnapshot]
+
+
+@dataclass
+class IntersectionCrossing:
+    """A signalised intersection the vehicle has completed crossing."""
+    tls_id: str
+    approach_edge: str
+    exit_edge: str
+    entered_time_s: Optional[float]       # first step seen inside the junction (None if the step skipped it)
+    crossed_time_s: float                 # first step seen on the exit edge
+    wait_time_s: float                    # time stopped while this was the next signal within the wait zone
+    speed_mps: float                      # speed when first seen on the exit edge
+
+
+@dataclass
+class IntersectionStatus:
+    vehicle_id: str
+    sim_time_s: float
+    vehicle_active: bool                  # False once the vehicle has left the simulation
+    on_junction: bool
+    current_intersection: Optional[str]   # tls id while the vehicle is inside a signalised junction
+    next_intersection: Optional[UpcomingIntersection]
+    upcoming: List[UpcomingIntersection]  # within lookahead_m, nearest first
+    lookahead_m: float
+    remaining_signalised_on_route: int    # all signalised intersections still ahead, any distance
+    crossed: List[IntersectionCrossing]
+    signalised_crossed: int
+    junctions_crossed: int                # every junction passed, signalised or not
+
+    def to_dict(self) -> Dict[str, Any]:
+        return to_jsonable(asdict(self))
