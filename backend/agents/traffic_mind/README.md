@@ -11,8 +11,9 @@ The traffic agent of **VELORA AI**. It watches a simulated city grid, detects co
 | Congestion forecast | `traffic_predictor.py` | the level each junction will have 30, 60 or 120 s ahead, with probabilities |
 | Signal recommendations | `signal_controller.py` | safe green-time advice, never touching yellow or all-red |
 | Dashboard | `visualization.py` | a static six-panel figure and a live window (Matplotlib) |
+| Orchestrator interface | `agent.py` | `get_traffic_status`, `detect_congestion`, `predict_congestion`, `generate_signal_recommendation` |
 
-Input and output formats, with real examples: [`docs/traffic_mind/INPUT_OUTPUT.md`](../../../docs/traffic_mind/INPUT_OUTPUT.md).
+Input and output formats, with real examples: [`docs/traffic_mind/INPUT_OUTPUT.md`](../../../docs/traffic_mind/INPUT_OUTPUT.md). What the Central Orchestrator calls, and what it must not do: [`docs/traffic_mind/INTEGRATION.md`](../../../docs/traffic_mind/INTEGRATION.md).
 
 ---
 
@@ -69,9 +70,10 @@ SUMO --TraCI--> SimulationInterface --> TrafficMonitor --> CongestionDetector --
                 (only file that                  (pure Python on Pydantic models; no SUMO from here on)
                  talks to SUMO)                                  |                      |                  |
                                                                  +---------- RunRecorder / dashboard ------+
+agent.py wraps that chain: get_traffic_status, detect_congestion, predict_congestion, generate_signal_recommendation.
 ```
 
-Only `simulation_interface.py` imports TraCI. Everything after it works on plain data models, so each stage can be tested, replayed or fed from another source without SUMO.
+Only `simulation_interface.py` imports TraCI. Everything after it works on plain data models, so each stage can be tested, replayed or fed from another source without SUMO. `agent.py` is the function list the orchestrator will call; it does not start SUMO or change a signal.
 
 **Monitoring.** Every 5 simulated seconds: per road the vehicle count, density, occupancy, stopped vehicles, queue length in metres (a chain of slow cars from the stop line; handles queues that are discharging), mean waiting time, speed ratio and flow; per junction the aggregates and the signal phase; and network totals.
 
@@ -161,6 +163,17 @@ All tunable numbers are in `config.py`, none are hard-coded in the logic:
 | `MODEL_LOAD_ERROR` | The model does not match this code: retrain with `scripts/train_model.py`. |
 | No forecasts / "No trained model" | Models folder missing or empty: retrain, or restore `models/`. |
 
-## 9. Git
+## 9. Integration (Phase 2)
+
+The four public functions and the checklist for the Central Orchestrator are in [`docs/traffic_mind/INTEGRATION.md`](../../../docs/traffic_mind/INTEGRATION.md). Short version: the orchestrator starts and steps SUMO, calls `attach_simulation(sim)`, then once every 5 seconds calls `get_traffic_status()`, `detect_congestion()`, `predict_congestion()` and `generate_signal_recommendation()`. Each returns a JSON dict (`"status": "ok"` or an error object) and does not raise. TrafficMind never applies the advice.
+
+```python
+from backend.agents.traffic_mind.agent import (
+    attach_simulation, get_traffic_status, detect_congestion,
+    predict_congestion, generate_signal_recommendation,
+)
+```
+
+## 10. Git
 
 Work stays on the TrafficMind branch and inside the `traffic_mind` paths (`backend/agents/traffic_mind/`, `simulation/traffic_mind/`, `datasets/traffic_mind/`, `docs/traffic_mind/`). Do not commit `.venv/`, `__pycache__/`, `datasets/traffic_mind/traffic_dataset.csv` or `datasets/traffic_mind/output/` (the last two are ignored already).

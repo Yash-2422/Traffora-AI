@@ -14,39 +14,37 @@ What goes into the TrafficMind agent and what comes out. Everything below is che
 
 ## How to produce each output
 
-The four outputs carry the names of the public functions in the project brief (`get_traffic_status`, `detect_congestion`, `predict_congestion`, `generate_signal_recommendation`). Those names become one-line wrapper functions in `agent.py` in the integration step (Step 10); until then use the classes below, which do the actual work.
+Call the four functions in `backend/agents/traffic_mind/agent.py`. Each is a one-line wrapper around the class that does the work, returns the JSON object documented below, and does not raise (failures use the error object at the end of this page).
 
-| Output | Produced by | Needs |
+| Output | Function | Class that does the work |
 |---|---|---|
-| 1. traffic status | `TrafficMonitor.sample(sim)` (or `.update(raw_observation)`) | a running `SimulationInterface`, or your own `RawObservation` |
-| 2. congestion | `CongestionDetector.update(status)` | the traffic status |
-| 3. forecast | `TrafficPredictor.predict(status, congestion)` | the two above, in time order, one call per sample; a trained model (falls back to "no change" without one) |
-| 4. signal advice | `SignalAdvisor.recommend(status, congestion, forecast)` | the above; the junctions' signal programs (`SignalAdvisor.from_source(sim)`); the forecast is optional |
+| 1. traffic status | `get_traffic_status()` | `TrafficMonitor.sample` |
+| 2. congestion | `detect_congestion()` | `CongestionDetector.update` |
+| 3. forecast | `predict_congestion()` | `TrafficPredictor.predict` |
+| 4. signal advice | `generate_signal_recommendation()` | `SignalAdvisor.recommend` |
 
-Call them once per sample (every 5 simulated seconds), in time order: the detector, predictor and advisor all keep short histories.
+Call them once per sample (every 5 simulated seconds), in that order. They share one agent, and a second call at the same simulation time reuses the sample. Pass a traffic-status dict as `snapshot` to run without SUMO. `predict_congestion(horizon_s=60)` also accepts 30 or 120. The orchestrator's checklist is [`INTEGRATION.md`](INTEGRATION.md).
 
 ```python
+from backend.agents.traffic_mind.agent import (
+    attach_simulation, get_traffic_status, detect_congestion,
+    predict_congestion, generate_signal_recommendation, reset_agent,
+)
 from backend.agents.traffic_mind.config import SimulationConfig
 from backend.agents.traffic_mind.simulation_interface import SimulationInterface
-from backend.agents.traffic_mind.traffic_monitor import TrafficMonitor
-from backend.agents.traffic_mind.congestion_detector import CongestionDetector
-from backend.agents.traffic_mind.traffic_predictor import TrafficPredictor
-from backend.agents.traffic_mind.signal_controller import SignalAdvisor
 
 with SimulationInterface(SimulationConfig(scenario="surge")) as sim:
-    monitor = TrafficMonitor.from_source(sim)
-    detector = CongestionDetector()
-    predictor = TrafficPredictor(detector=detector)
-    predictor.load_models()
-    advisor = SignalAdvisor.from_source(sim)
+    attach_simulation(sim)
     while sim.current_time < 1800:
         sim.step(5)
-        status = monitor.sample(sim)                                # 1. traffic status
-        congestion = detector.update(status)                        # 2. congestion
-        forecast = predictor.predict(status, congestion)            # 3. forecast
-        advice = advisor.recommend(status, congestion, forecast)    # 4. signal advice
-    print(advice.to_dict())
+        status = get_traffic_status()                  # 1. traffic status
+        congestion = detect_congestion()               # 2. congestion
+        forecast = predict_congestion()                # 3. forecast
+        advice = generate_signal_recommendation()      # 4. signal advice
+reset_agent()
 ```
+
+The classes still work on their own (a `TrafficMonitor` needs a topology or a running simulation; the detector, predictor and advisor take the models above). Prefer the four functions for anything the orchestrator will call.
 
 ---
 
