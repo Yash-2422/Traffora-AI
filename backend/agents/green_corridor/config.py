@@ -44,3 +44,5 @@ HARMONIC_MIN_SPEED_MPS = 0.5      # floor for a vehicle's speed when averaging (
 # --- Intersection monitoring (Step 6) ---------------------------------------------
 INTERSECTION_LOOKAHEAD_M = 600.0     # default look-ahead for identify_upcoming_intersections()
 WAIT_ATTRIBUTION_ZONE_M = 100.0      # stopped time is attributed to the next signal if its stop line is this close 
+
+PRIORITY_RESPECT_MIN_DUR = True
