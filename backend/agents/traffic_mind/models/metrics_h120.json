@@ -1,0 +1,970 @@
+{
+  "horizon_s": 120,
+  "chosen_model": "random_forest",
+  "cross_validation": {
+    "logistic_regression": {
+      "mean_macro_f1": 0.7159,
+      "std": 0.0058
+    },
+    "random_forest": {
+      "mean_macro_f1": 0.7214,
+      "std": 0.0064
+    },
+    "gradient_boosting": {
+      "mean_macro_f1": 0.7146,
+      "std": 0.0066
+    }
+  },
+  "trend_gain": 0.0,
+  "train_runs": [
+    "rand_1000",
+    "rand_1001",
+    "rand_1002",
+    "rand_1003",
+    "rand_1005",
+    "rand_1007",
+    "rand_1008",
+    "rand_1009",
+    "rand_1010",
+    "rand_1011",
+    "rand_1013",
+    "rand_1014",
+    "rand_1017",
+    "rand_1018",
+    "rand_1020",
+    "rand_1021",
+    "rand_1022",
+    "rand_1023",
+    "rand_1024",
+    "rand_1025",
+    "rand_1028",
+    "rand_1029",
+    "rand_1030",
+    "rand_1031",
+    "rand_1032",
+    "rand_1033",
+    "rand_1034",
+    "rand_1035",
+    "rand_1036",
+    "rand_1038"
+  ],
+  "test_runs": [
+    "rand_1004",
+    "rand_1006",
+    "rand_1012",
+    "rand_1015",
+    "rand_1016",
+    "rand_1019",
+    "rand_1026",
+    "rand_1027",
+    "rand_1037",
+    "rand_1039"
+  ],
+  "class_balance_test": {
+    "LOW": 11901,
+    "HIGH": 4452,
+    "MEDIUM": 4167
+  },
+  "test": {
+    "model": {
+      "rows": 20520,
+      "accuracy": 0.7615,
+      "macro_f1": 0.7397,
+      "recall": {
+        "LOW": 0.7649,
+        "MEDIUM": 0.611,
+        "HIGH": 0.8931
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "rows_true_cols_predicted": [
+          [
+            9103,
+            2745,
+            53
+          ],
+          [
+            1085,
+            2546,
+            536
+          ],
+          [
+            22,
+            454,
+            3976
+          ]
+        ]
+      },
+      "worsening_events": 3106,
+      "onset_recall": 0.613,
+      "false_alarm_rate": 0.1033
+    },
+    "persistence": {
+      "rows": 20520,
+      "accuracy": 0.7232,
+      "macro_f1": 0.6627,
+      "recall": {
+        "LOW": 0.8272,
+        "MEDIUM": 0.3653,
+        "HIGH": 0.7803
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "rows_true_cols_predicted": [
+          [
+            9844,
+            1865,
+            192
+          ],
+          [
+            2128,
+            1522,
+            517
+          ],
+          [
+            229,
+            749,
+            3474
+          ]
+        ]
+      },
+      "worsening_events": 3106,
+      "onset_recall": 0.0,
+      "false_alarm_rate": 0.0
+    },
+    "trend": {
+      "rows": 20520,
+      "accuracy": 0.7448,
+      "macro_f1": 0.6806,
+      "recall": {
+        "LOW": 0.8599,
+        "MEDIUM": 0.3621,
+        "HIGH": 0.7954
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "rows_true_cols_predicted": [
+          [
+            10234,
+            1552,
+            115
+          ],
+          [
+            2213,
+            1509,
+            445
+          ],
+          [
+            188,
+            723,
+            3541
+          ]
+        ]
+      },
+      "worsening_events": 3106,
+      "onset_recall": 0.1175,
+      "false_alarm_rate": 0.0162
+    },
+    "always_low": {
+      "rows": 20520,
+      "accuracy": 0.58,
+      "macro_f1": 0.2447,
+      "recall": {
+        "LOW": 1.0,
+        "MEDIUM": 0.0,
+        "HIGH": 0.0
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "rows_true_cols_predicted": [
+          [
+            11901,
+            0,
+            0
+          ],
+          [
+            4167,
+            0,
+            0
+          ],
+          [
+            4452,
+            0,
+            0
+          ]
+        ]
+      },
+      "worsening_events": 3106,
+      "onset_recall": 0.0,
+      "false_alarm_rate": 0.0
+    }
+  },
+  "named_scenarios": {
+    "model": {
+      "rows": 8208,
+      "accuracy": 0.7663,
+      "macro_f1": 0.7066,
+      "recall": {
+        "LOW": 0.8095,
+        "MEDIUM": 0.612,
+        "HIGH": 0.7585
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "rows_true_cols_predicted": [
+          [
+            4731,
+            1094,
+            19
+          ],
+          [
+            443,
+            978,
+            177
+          ],
+          [
+            11,
+            174,
+            581
+          ]
+        ]
+      },
+      "worsening_events": 1175,
+      "onset_recall": 0.5804,
+      "false_alarm_rate": 0.0916
+    },
+    "persistence": {
+      "rows": 8208,
+      "accuracy": 0.7247,
+      "macro_f1": 0.5945,
+      "recall": {
+        "LOW": 0.8451,
+        "MEDIUM": 0.3523,
+        "HIGH": 0.5822
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "rows_true_cols_predicted": [
+          [
+            4939,
+            773,
+            132
+          ],
+          [
+            855,
+            563,
+            180
+          ],
+          [
+            94,
+            226,
+            446
+          ]
+        ]
+      },
+      "worsening_events": 1175,
+      "onset_recall": 0.0,
+      "false_alarm_rate": 0.0
+    },
+    "trend": {
+      "rows": 8208,
+      "accuracy": 0.7478,
+      "macro_f1": 0.6209,
+      "recall": {
+        "LOW": 0.8744,
+        "MEDIUM": 0.3504,
+        "HIGH": 0.611
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "rows_true_cols_predicted": [
+          [
+            5110,
+            656,
+            78
+          ],
+          [
+            877,
+            560,
+            161
+          ],
+          [
+            76,
+            222,
+            468
+          ]
+        ]
+      },
+      "worsening_events": 1175,
+      "onset_recall": 0.1106,
+      "false_alarm_rate": 0.0164
+    },
+    "always_low": {
+      "rows": 8208,
+      "accuracy": 0.712,
+      "macro_f1": 0.2773,
+      "recall": {
+        "LOW": 1.0,
+        "MEDIUM": 0.0,
+        "HIGH": 0.0
+      },
+      "confusion_matrix": {
+        "labels": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "rows_true_cols_predicted": [
+          [
+            5844,
+            0,
+            0
+          ],
+          [
+            1598,
+            0,
+            0
+          ],
+          [
+            766,
+            0,
+            0
+          ]
+        ]
+      },
+      "worsening_events": 1175,
+      "onset_recall": 0.0,
+      "false_alarm_rate": 0.0
+    }
+  },
+  "named_scenarios_by_run": {
+    "named_mixed": {
+      "model": {
+        "rows": 2052,
+        "accuracy": 0.7417,
+        "macro_f1": 0.7167,
+        "recall": {
+          "LOW": 0.7614,
+          "MEDIUM": 0.6892,
+          "HIGH": 0.7509
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              948,
+              288,
+              9
+            ],
+            [
+              90,
+              357,
+              71
+            ],
+            [
+              7,
+              65,
+              217
+            ]
+          ]
+        },
+        "worsening_events": 350,
+        "onset_recall": 0.6629,
+        "false_alarm_rate": 0.0981
+      },
+      "persistence": {
+        "rows": 2052,
+        "accuracy": 0.6676,
+        "macro_f1": 0.5902,
+        "recall": {
+          "LOW": 0.7952,
+          "MEDIUM": 0.4286,
+          "HIGH": 0.5467
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              990,
+              201,
+              54
+            ],
+            [
+              219,
+              222,
+              77
+            ],
+            [
+              36,
+              95,
+              158
+            ]
+          ]
+        },
+        "worsening_events": 350,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0
+      },
+      "trend": {
+        "rows": 2052,
+        "accuracy": 0.6925,
+        "macro_f1": 0.6162,
+        "recall": {
+          "LOW": 0.8345,
+          "MEDIUM": 0.4151,
+          "HIGH": 0.5779
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              1039,
+              176,
+              30
+            ],
+            [
+              236,
+              215,
+              67
+            ],
+            [
+              32,
+              90,
+              167
+            ]
+          ]
+        },
+        "worsening_events": 350,
+        "onset_recall": 0.1371,
+        "false_alarm_rate": 0.0165
+      },
+      "always_low": {
+        "rows": 2052,
+        "accuracy": 0.6067,
+        "macro_f1": 0.2517,
+        "recall": {
+          "LOW": 1.0,
+          "MEDIUM": 0.0,
+          "HIGH": 0.0
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              1245,
+              0,
+              0
+            ],
+            [
+              518,
+              0,
+              0
+            ],
+            [
+              289,
+              0,
+              0
+            ]
+          ]
+        },
+        "worsening_events": 350,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0
+      }
+    },
+    "named_offpeak": {
+      "model": {
+        "rows": 2052,
+        "accuracy": 0.9927,
+        "macro_f1": 0.3321,
+        "recall": {
+          "LOW": 0.998,
+          "MEDIUM": 0.0,
+          "HIGH": 0.0
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              2037,
+              4,
+              0
+            ],
+            [
+              11,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "worsening_events": 11,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.002
+      },
+      "persistence": {
+        "rows": 2052,
+        "accuracy": 0.9893,
+        "macro_f1": 0.3315,
+        "recall": {
+          "LOW": 0.9946,
+          "MEDIUM": 0.0,
+          "HIGH": 0.0
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              2030,
+              11,
+              0
+            ],
+            [
+              11,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "worsening_events": 11,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0
+      },
+      "trend": {
+        "rows": 2052,
+        "accuracy": 0.9907,
+        "macro_f1": 0.3318,
+        "recall": {
+          "LOW": 0.9961,
+          "MEDIUM": 0.0,
+          "HIGH": 0.0
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              2033,
+              8,
+              0
+            ],
+            [
+              11,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "worsening_events": 11,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0015
+      },
+      "always_low": {
+        "rows": 2052,
+        "accuracy": 0.9946,
+        "macro_f1": 0.3324,
+        "recall": {
+          "LOW": 1.0,
+          "MEDIUM": 0.0,
+          "HIGH": 0.0
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              2041,
+              0,
+              0
+            ],
+            [
+              11,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "worsening_events": 11,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0
+      }
+    },
+    "named_peak": {
+      "model": {
+        "rows": 2052,
+        "accuracy": 0.5526,
+        "macro_f1": 0.4914,
+        "recall": {
+          "LOW": 0.5514,
+          "MEDIUM": 0.5863,
+          "HIGH": 0.3621
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              681,
+              546,
+              8
+            ],
+            [
+              225,
+              411,
+              65
+            ],
+            [
+              2,
+              72,
+              42
+            ]
+          ]
+        },
+        "worsening_events": 527,
+        "onset_recall": 0.5503,
+        "false_alarm_rate": 0.2151
+      },
+      "persistence": {
+        "rows": 2052,
+        "accuracy": 0.5146,
+        "macro_f1": 0.3557,
+        "recall": {
+          "LOW": 0.6615,
+          "MEDIUM": 0.3281,
+          "HIGH": 0.0776
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              817,
+              370,
+              48
+            ],
+            [
+              420,
+              230,
+              51
+            ],
+            [
+              37,
+              70,
+              9
+            ]
+          ]
+        },
+        "worsening_events": 527,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0
+      },
+      "trend": {
+        "rows": 2052,
+        "accuracy": 0.5551,
+        "macro_f1": 0.3952,
+        "recall": {
+          "LOW": 0.7247,
+          "MEDIUM": 0.3267,
+          "HIGH": 0.1293
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              895,
+              309,
+              31
+            ],
+            [
+              425,
+              229,
+              47
+            ],
+            [
+              29,
+              72,
+              15
+            ]
+          ]
+        },
+        "worsening_events": 527,
+        "onset_recall": 0.0987,
+        "false_alarm_rate": 0.0367
+      },
+      "always_low": {
+        "rows": 2052,
+        "accuracy": 0.6019,
+        "macro_f1": 0.2505,
+        "recall": {
+          "LOW": 1.0,
+          "MEDIUM": 0.0,
+          "HIGH": 0.0
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              1235,
+              0,
+              0
+            ],
+            [
+              701,
+              0,
+              0
+            ],
+            [
+              116,
+              0,
+              0
+            ]
+          ]
+        },
+        "worsening_events": 527,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0
+      }
+    },
+    "named_surge": {
+      "model": {
+        "rows": 2052,
+        "accuracy": 0.7783,
+        "macro_f1": 0.7396,
+        "recall": {
+          "LOW": 0.805,
+          "MEDIUM": 0.5707,
+          "HIGH": 0.892
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              1065,
+              256,
+              2
+            ],
+            [
+              117,
+              210,
+              41
+            ],
+            [
+              2,
+              37,
+              322
+            ]
+          ]
+        },
+        "worsening_events": 287,
+        "onset_recall": 0.5575,
+        "false_alarm_rate": 0.0822
+      },
+      "persistence": {
+        "rows": 2052,
+        "accuracy": 0.7271,
+        "macro_f1": 0.636,
+        "recall": {
+          "LOW": 0.833,
+          "MEDIUM": 0.3016,
+          "HIGH": 0.7729
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              1102,
+              191,
+              30
+            ],
+            [
+              205,
+              111,
+              52
+            ],
+            [
+              21,
+              61,
+              279
+            ]
+          ]
+        },
+        "worsening_events": 287,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0
+      },
+      "trend": {
+        "rows": 2052,
+        "accuracy": 0.7529,
+        "macro_f1": 0.6612,
+        "recall": {
+          "LOW": 0.8639,
+          "MEDIUM": 0.3152,
+          "HIGH": 0.7922
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              1143,
+              163,
+              17
+            ],
+            [
+              205,
+              116,
+              47
+            ],
+            [
+              15,
+              60,
+              286
+            ]
+          ]
+        },
+        "worsening_events": 287,
+        "onset_recall": 0.1045,
+        "false_alarm_rate": 0.0159
+      },
+      "always_low": {
+        "rows": 2052,
+        "accuracy": 0.6447,
+        "macro_f1": 0.2613,
+        "recall": {
+          "LOW": 1.0,
+          "MEDIUM": 0.0,
+          "HIGH": 0.0
+        },
+        "confusion_matrix": {
+          "labels": [
+            "LOW",
+            "MEDIUM",
+            "HIGH"
+          ],
+          "rows_true_cols_predicted": [
+            [
+              1323,
+              0,
+              0
+            ],
+            [
+              368,
+              0,
+              0
+            ],
+            [
+              361,
+              0,
+              0
+            ]
+          ]
+        },
+        "worsening_events": 287,
+        "onset_recall": 0.0,
+        "false_alarm_rate": 0.0
+      }
+    }
+  }
+}

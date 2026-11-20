@@ -1,0 +1,47 @@
+@"
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+.cursor/
+
+# Logs
+*.log
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# SUMO
+*.sumocfg~
+*.net.xml~
+*.rou.xml~
+*.tripinfo.xml
+*.fcd.xml
+*.netstate.xml
+*.xml.tmp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+"@ | Add-Content .gitignore

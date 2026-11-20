@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+  <input>
+    <net-file value="../sample_network/grid3x3.net.xml" />
+    <route-files value="peak.rou.xml" />
+  </input>
+  <time>
+    <begin value="0" />
+    <end value="3600" />
+    <step-length value="1" />
+  </time>
+  <processing>
+    <time-to-teleport value="300" />
+    <waiting-time-memory value="300" />
+  </processing>
+</configuration>

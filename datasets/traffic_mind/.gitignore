@@ -1,0 +1,5 @@
+# Large / regenerable files (the sample dataset stays in git)
+traffic_dataset.csv
+_generated_scenarios/
+# Dashboard images and data written by scripts/run_dashboard.py
+output/

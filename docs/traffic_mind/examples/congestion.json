@@ -1,0 +1,1198 @@
+{
+    "status": "ok",
+    "timestamp_s": 1800.0,
+    "summary": {
+      "junctions_low": 3,
+      "junctions_medium": 4,
+      "junctions_high": 2,
+      "roads_low": 41,
+      "roads_medium": 5,
+      "roads_high": 2
+    },
+    "junctions": [
+      {
+        "junction_id": "A0",
+        "score": 0.179,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "since_s": 845.0,
+        "worst_edge_id": "B0A0",
+        "dominant_factor": "speed_drop",
+        "factors": {
+          "occupancy": 0.2297,
+          "queue": 0.1127,
+          "waiting": 0.0234,
+          "speed_drop": 0.3872
+        },
+        "vehicle_count": 11,
+        "queue_length_veh": 4,
+        "max_queue_length_m": 21.01,
+        "mean_waiting_time_s": 1.82,
+        "requires_attention": false,
+        "attention_reason": null
+      },
+      {
+        "junction_id": "A1",
+        "score": 0.8099,
+        "raw_level": "HIGH",
+        "level": "HIGH",
+        "since_s": 1465.0,
+        "worst_edge_id": "left1A1",
+        "dominant_factor": "queue",
+        "factors": {
+          "occupancy": 1.0,
+          "queue": 1.0,
+          "waiting": 0.1128,
+          "speed_drop": 0.9365
+        },
+        "vehicle_count": 36,
+        "queue_length_veh": 24,
+        "max_queue_length_m": 238.55,
+        "mean_waiting_time_s": 11.08,
+        "requires_attention": true,
+        "attention_reason": "HIGH congestion for 335 s"
+      },
+      {
+        "junction_id": "A2",
+        "score": 0.299,
+        "raw_level": "MEDIUM",
+        "level": "MEDIUM",
+        "since_s": 1725.0,
+        "worst_edge_id": "A1A2",
+        "dominant_factor": "speed_drop",
+        "factors": {
+          "occupancy": 0.3099,
+          "queue": 0.2418,
+          "waiting": 0.0848,
+          "speed_drop": 0.5994
+        },
+        "vehicle_count": 10,
+        "queue_length_veh": 4,
+        "max_queue_length_m": 21.0,
+        "mean_waiting_time_s": 4.4,
+        "requires_attention": true,
+        "attention_reason": "MEDIUM congestion has lasted 75 s"
+      },
+      {
+        "junction_id": "B0",
+        "score": 0.7663,
+        "raw_level": "HIGH",
+        "level": "HIGH",
+        "since_s": 1585.0,
+        "worst_edge_id": "bottom1B0",
+        "dominant_factor": "queue",
+        "factors": {
+          "occupancy": 0.9851,
+          "queue": 0.9336,
+          "waiting": 0.1077,
+          "speed_drop": 0.8588
+        },
+        "vehicle_count": 29,
+        "queue_length_veh": 14,
+        "max_queue_length_m": 114.6,
+        "mean_waiting_time_s": 3.51,
+        "requires_attention": true,
+        "attention_reason": "HIGH congestion for 215 s"
+      },
+      {
+        "junction_id": "B1",
+        "score": 0.2832,
+        "raw_level": "MEDIUM",
+        "level": "MEDIUM",
+        "since_s": 1760.0,
+        "worst_edge_id": "B0B1",
+        "dominant_factor": "speed_drop",
+        "factors": {
+          "occupancy": 0.2328,
+          "queue": 0.2204,
+          "waiting": 0.11,
+          "speed_drop": 0.6295
+        },
+        "vehicle_count": 11,
+        "queue_length_veh": 5,
+        "max_queue_length_m": 28.5,
+        "mean_waiting_time_s": 3.36,
+        "requires_attention": false,
+        "attention_reason": null
+      },
+      {
+        "junction_id": "B2",
+        "score": 0.5324,
+        "raw_level": "HIGH",
+        "level": "MEDIUM",
+        "since_s": 1770.0,
+        "worst_edge_id": "A2B2",
+        "dominant_factor": "queue",
+        "factors": {
+          "occupancy": 0.5998,
+          "queue": 0.6071,
+          "waiting": 0.0843,
+          "speed_drop": 0.7652
+        },
+        "vehicle_count": 25,
+        "queue_length_veh": 10,
+        "max_queue_length_m": 141.26,
+        "mean_waiting_time_s": 4.56,
+        "requires_attention": false,
+        "attention_reason": null
+      },
+      {
+        "junction_id": "C0",
+        "score": 0.115,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "since_s": 5.0,
+        "worst_edge_id": "right0C0",
+        "dominant_factor": "speed_drop",
+        "factors": {
+          "occupancy": 0.1177,
+          "queue": 0.0522,
+          "waiting": 0.0362,
+          "speed_drop": 0.3005
+        },
+        "vehicle_count": 8,
+        "queue_length_veh": 3,
+        "max_queue_length_m": 13.5,
+        "mean_waiting_time_s": 3.38,
+        "requires_attention": false,
+        "attention_reason": null
+      },
+      {
+        "junction_id": "C1",
+        "score": 0.1017,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "since_s": 1710.0,
+        "worst_edge_id": "C2C1",
+        "dominant_factor": "speed_drop",
+        "factors": {
+          "occupancy": 0.1344,
+          "queue": 0.0384,
+          "waiting": 0.0329,
+          "speed_drop": 0.2405
+        },
+        "vehicle_count": 9,
+        "queue_length_veh": 1,
+        "max_queue_length_m": 6.0,
+        "mean_waiting_time_s": 1.67,
+        "requires_attention": false,
+        "attention_reason": null
+      },
+      {
+        "junction_id": "C2",
+        "score": 0.2692,
+        "raw_level": "MEDIUM",
+        "level": "MEDIUM",
+        "since_s": 1800.0,
+        "worst_edge_id": "B2C2",
+        "dominant_factor": "speed_drop",
+        "factors": {
+          "occupancy": 0.201,
+          "queue": 0.1541,
+          "waiting": 0.1342,
+          "speed_drop": 0.6909
+        },
+        "vehicle_count": 11,
+        "queue_length_veh": 2,
+        "max_queue_length_m": 13.5,
+        "mean_waiting_time_s": 1.36,
+        "requires_attention": false,
+        "attention_reason": null
+      }
+    ],
+    "edges": [
+      {
+        "edge_id": "A0A1",
+        "junction_id": "A1",
+        "score": 0.059,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0842,
+          "queue": 0.0146,
+          "waiting": 0.0148,
+          "speed_drop": 0.1495
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 4,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "A0B0",
+        "junction_id": "B0",
+        "score": 0.0473,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0674,
+          "queue": 0.0164,
+          "waiting": 0.0046,
+          "speed_drop": 0.1188
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 1,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "A0bottom0",
+        "junction_id": null,
+        "score": 0.0044,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0163,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0018
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "A0left0",
+        "junction_id": null,
+        "score": 0.0216,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.056,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0379
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 2,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "A1A0",
+        "junction_id": "A0",
+        "score": 0.0588,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.099,
+          "queue": 0.0209,
+          "waiting": 0.0033,
+          "speed_drop": 0.1305
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 5,
+        "queue_length_veh": 3,
+        "queue_length_m": 21.01
+      },
+      {
+        "edge_id": "A1A2",
+        "junction_id": "A2",
+        "score": 0.299,
+        "raw_level": "MEDIUM",
+        "level": "MEDIUM",
+        "factors": {
+          "occupancy": 0.3099,
+          "queue": 0.2418,
+          "waiting": 0.0848,
+          "speed_drop": 0.5994
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 4,
+        "queue_length_veh": 3,
+        "queue_length_m": 21.0
+      },
+      {
+        "edge_id": "A1B1",
+        "junction_id": "B1",
+        "score": 0.0038,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0114,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0046
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 3,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "A1left1",
+        "junction_id": null,
+        "score": 0.0092,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0294,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0091
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "A2A1",
+        "junction_id": "A1",
+        "score": 0.0156,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0438,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0233
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 1,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "A2B2",
+        "junction_id": "B2",
+        "score": 0.5324,
+        "raw_level": "HIGH",
+        "level": "MEDIUM",
+        "factors": {
+          "occupancy": 0.5998,
+          "queue": 0.6071,
+          "waiting": 0.0843,
+          "speed_drop": 0.7652
+        },
+        "dominant_factor": "queue",
+        "vehicle_count": 14,
+        "queue_length_veh": 4,
+        "queue_length_m": 141.26
+      },
+      {
+        "edge_id": "A2left2",
+        "junction_id": null,
+        "score": 0.0142,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.036,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0261
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "A2top0",
+        "junction_id": null,
+        "score": 0.0077,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0261,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0056
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "B0A0",
+        "junction_id": "A0",
+        "score": 0.179,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.2297,
+          "queue": 0.1127,
+          "waiting": 0.0234,
+          "speed_drop": 0.3872
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 4,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "B0B1",
+        "junction_id": "B1",
+        "score": 0.2832,
+        "raw_level": "MEDIUM",
+        "level": "MEDIUM",
+        "factors": {
+          "occupancy": 0.2328,
+          "queue": 0.2204,
+          "waiting": 0.11,
+          "speed_drop": 0.6295
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 4,
+        "queue_length_veh": 4,
+        "queue_length_m": 28.5
+      },
+      {
+        "edge_id": "B0C0",
+        "junction_id": "C0",
+        "score": 0.0243,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0557,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0518
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 2,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "B0bottom1",
+        "junction_id": null,
+        "score": 0.0081,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0229,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0117
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 1,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "B1A1",
+        "junction_id": "A1",
+        "score": 0.3629,
+        "raw_level": "MEDIUM",
+        "level": "MEDIUM",
+        "factors": {
+          "occupancy": 0.2636,
+          "queue": 0.2871,
+          "waiting": 0.138,
+          "speed_drop": 0.8445
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 6,
+        "queue_length_veh": 5,
+        "queue_length_m": 38.54
+      },
+      {
+        "edge_id": "B1B0",
+        "junction_id": "B0",
+        "score": 0.0354,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0404,
+          "queue": 0.0164,
+          "waiting": 0.0051,
+          "speed_drop": 0.0926
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 2,
+        "queue_length_veh": 2,
+        "queue_length_m": 13.5
+      },
+      {
+        "edge_id": "B1B2",
+        "junction_id": "B2",
+        "score": 0.2232,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.2122,
+          "queue": 0.1249,
+          "waiting": 0.0723,
+          "speed_drop": 0.5601
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 5,
+        "queue_length_veh": 5,
+        "queue_length_m": 36.01
+      },
+      {
+        "edge_id": "B1C1",
+        "junction_id": "C1",
+        "score": 0.0,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "B2A2",
+        "junction_id": "A2",
+        "score": 0.0081,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0226,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.012
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 2,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "B2B1",
+        "junction_id": "B1",
+        "score": 0.053,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0606,
+          "queue": 0.0219,
+          "waiting": 0.0253,
+          "speed_drop": 0.1257
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 1,
+        "queue_length_veh": 1,
+        "queue_length_m": 6.0
+      },
+      {
+        "edge_id": "B2C2",
+        "junction_id": "C2",
+        "score": 0.2692,
+        "raw_level": "MEDIUM",
+        "level": "MEDIUM",
+        "factors": {
+          "occupancy": 0.201,
+          "queue": 0.1541,
+          "waiting": 0.1342,
+          "speed_drop": 0.6909
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 6,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "B2top1",
+        "junction_id": null,
+        "score": 0.0514,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.1353,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0879
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 2,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C0B0",
+        "junction_id": "B0",
+        "score": 0.1096,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0946,
+          "queue": 0.0528,
+          "waiting": 0.0592,
+          "speed_drop": 0.2785
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 2,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C0C1",
+        "junction_id": "C1",
+        "score": 0.0172,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0269,
+          "queue": 0.0036,
+          "waiting": 0.0008,
+          "speed_drop": 0.0451
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 3,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C0bottom2",
+        "junction_id": null,
+        "score": 0.029,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0686,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.059
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C0right0",
+        "junction_id": null,
+        "score": 0.006,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0131,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0134
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 1,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C1B1",
+        "junction_id": "B1",
+        "score": 0.0194,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0472,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0383
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 3,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C1C0",
+        "junction_id": "C0",
+        "score": 0.0868,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0775,
+          "queue": 0.0493,
+          "waiting": 0.0217,
+          "speed_drop": 0.2292
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 2,
+        "queue_length_veh": 2,
+        "queue_length_m": 13.5
+      },
+      {
+        "edge_id": "C1C2",
+        "junction_id": "C2",
+        "score": 0.0084,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0168,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0211
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C1right1",
+        "junction_id": null,
+        "score": 0.0062,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0131,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0145
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C2B2",
+        "junction_id": "B2",
+        "score": 0.1629,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.1392,
+          "queue": 0.0837,
+          "waiting": 0.0804,
+          "speed_drop": 0.4137
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 4,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C2C1",
+        "junction_id": "C1",
+        "score": 0.1017,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.1344,
+          "queue": 0.0384,
+          "waiting": 0.0329,
+          "speed_drop": 0.2405
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 5,
+        "queue_length_veh": 1,
+        "queue_length_m": 6.0
+      },
+      {
+        "edge_id": "C2right2",
+        "junction_id": null,
+        "score": 0.0154,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0327,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0363
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 2,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "C2top2",
+        "junction_id": null,
+        "score": 0.0089,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0262,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0116
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 0,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "bottom0A0",
+        "junction_id": "A0",
+        "score": 0.0752,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0594,
+          "queue": 0.0389,
+          "waiting": 0.0283,
+          "speed_drop": 0.2054
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 1,
+        "queue_length_veh": 1,
+        "queue_length_m": 6.0
+      },
+      {
+        "edge_id": "bottom1B0",
+        "junction_id": "B0",
+        "score": 0.7663,
+        "raw_level": "HIGH",
+        "level": "HIGH",
+        "factors": {
+          "occupancy": 0.9851,
+          "queue": 0.9336,
+          "waiting": 0.1077,
+          "speed_drop": 0.8588
+        },
+        "dominant_factor": "queue",
+        "vehicle_count": 24,
+        "queue_length_veh": 12,
+        "queue_length_m": 114.6
+      },
+      {
+        "edge_id": "bottom2C0",
+        "junction_id": "C0",
+        "score": 0.0373,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0429,
+          "queue": 0.0141,
+          "waiting": 0.0087,
+          "speed_drop": 0.0996
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 2,
+        "queue_length_veh": 1,
+        "queue_length_m": 6.0
+      },
+      {
+        "edge_id": "left0A0",
+        "junction_id": "A0",
+        "score": 0.0058,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0196,
+          "queue": 0.0,
+          "waiting": 0.0,
+          "speed_drop": 0.0044
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 1,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "left1A1",
+        "junction_id": "A1",
+        "score": 0.8099,
+        "raw_level": "HIGH",
+        "level": "HIGH",
+        "factors": {
+          "occupancy": 1.0,
+          "queue": 1.0,
+          "waiting": 0.1128,
+          "speed_drop": 0.9365
+        },
+        "dominant_factor": "queue",
+        "vehicle_count": 25,
+        "queue_length_veh": 19,
+        "queue_length_m": 238.55
+      },
+      {
+        "edge_id": "left2A2",
+        "junction_id": "A2",
+        "score": 0.0958,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.1073,
+          "queue": 0.0424,
+          "waiting": 0.0408,
+          "speed_drop": 0.2301
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 2,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "right0C0",
+        "junction_id": "C0",
+        "score": 0.115,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.1177,
+          "queue": 0.0522,
+          "waiting": 0.0362,
+          "speed_drop": 0.3005
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 2,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "right1C1",
+        "junction_id": "C1",
+        "score": 0.0497,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0556,
+          "queue": 0.0212,
+          "waiting": 0.0191,
+          "speed_drop": 0.1226
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 1,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "right2C2",
+        "junction_id": "C2",
+        "score": 0.0824,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0915,
+          "queue": 0.0351,
+          "waiting": 0.027,
+          "speed_drop": 0.2094
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 1,
+        "queue_length_veh": 0,
+        "queue_length_m": 0.0
+      },
+      {
+        "edge_id": "top0A2",
+        "junction_id": "A2",
+        "score": 0.1085,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0719,
+          "queue": 0.0565,
+          "waiting": 0.0758,
+          "speed_drop": 0.2783
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 2,
+        "queue_length_veh": 1,
+        "queue_length_m": 6.0
+      },
+      {
+        "edge_id": "top1B2",
+        "junction_id": "B2",
+        "score": 0.0361,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.0719,
+          "queue": 0.0035,
+          "waiting": 0.0003,
+          "speed_drop": 0.0841
+        },
+        "dominant_factor": "occupancy",
+        "vehicle_count": 2,
+        "queue_length_veh": 1,
+        "queue_length_m": 6.01
+      },
+      {
+        "edge_id": "top2C2",
+        "junction_id": "C2",
+        "score": 0.1805,
+        "raw_level": "LOW",
+        "level": "LOW",
+        "factors": {
+          "occupancy": 0.1489,
+          "queue": 0.1211,
+          "waiting": 0.0623,
+          "speed_drop": 0.442
+        },
+        "dominant_factor": "speed_drop",
+        "vehicle_count": 4,
+        "queue_length_veh": 2,
+        "queue_length_m": 13.5
+      }
+    ],
+    "alerts": [
+      {
+        "alert_id": "junction:A1:HIGH:1465",
+        "entity_type": "junction",
+        "entity_id": "A1",
+        "level": "HIGH",
+        "severity": "critical",
+        "score": 0.8099,
+        "since_s": 1465.0,
+        "is_new": false,
+        "message": "Junction A1: HIGH congestion (score 0.81, mainly queue length on left1A1, averaged over the last 70 s). Right now: 24 stopped vehicles, longest queue 239 m, mean wait 11 s."
+      },
+      {
+        "alert_id": "junction:B0:HIGH:1585",
+        "entity_type": "junction",
+        "entity_id": "B0",
+        "level": "HIGH",
+        "severity": "critical",
+        "score": 0.7663,
+        "since_s": 1585.0,
+        "is_new": false,
+        "message": "Junction B0: HIGH congestion (score 0.77, mainly queue length on bottom1B0, averaged over the last 70 s). Right now: 14 stopped vehicles, longest queue 115 m, mean wait 4 s."
+      },
+      {
+        "alert_id": "road:left1A1:HIGH:1465",
+        "entity_type": "road",
+        "entity_id": "left1A1",
+        "level": "HIGH",
+        "severity": "critical",
+        "score": 0.8099,
+        "since_s": 1465.0,
+        "is_new": false,
+        "message": "Road left1A1 (approach to A1): HIGH congestion (score 0.81, averaged over the last 70 s). Right now: 25 vehicles, 19 stopped, queue 239 m."
+      },
+      {
+        "alert_id": "road:bottom1B0:HIGH:1585",
+        "entity_type": "road",
+        "entity_id": "bottom1B0",
+        "level": "HIGH",
+        "severity": "critical",
+        "score": 0.7663,
+        "since_s": 1585.0,
+        "is_new": false,
+        "message": "Road bottom1B0 (approach to B0): HIGH congestion (score 0.77, averaged over the last 70 s). Right now: 24 vehicles, 12 stopped, queue 115 m."
+      },
+      {
+        "alert_id": "junction:B2:MEDIUM:1770",
+        "entity_type": "junction",
+        "entity_id": "B2",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.5324,
+        "since_s": 1770.0,
+        "is_new": false,
+        "message": "Junction B2: MEDIUM congestion (score 0.53, mainly queue length on A2B2, averaged over the last 70 s). Right now: 10 stopped vehicles, longest queue 141 m, mean wait 5 s."
+      },
+      {
+        "alert_id": "junction:A2:MEDIUM:1725",
+        "entity_type": "junction",
+        "entity_id": "A2",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.299,
+        "since_s": 1725.0,
+        "is_new": false,
+        "message": "Junction A2: MEDIUM congestion (score 0.30, mainly speed drop on A1A2, averaged over the last 70 s). Right now: 4 stopped vehicles, longest queue 21 m, mean wait 4 s."
+      },
+      {
+        "alert_id": "junction:B1:MEDIUM:1760",
+        "entity_type": "junction",
+        "entity_id": "B1",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.2832,
+        "since_s": 1760.0,
+        "is_new": false,
+        "message": "Junction B1: MEDIUM congestion (score 0.28, mainly speed drop on B0B1, averaged over the last 70 s). Right now: 5 stopped vehicles, longest queue 28 m, mean wait 3 s."
+      },
+      {
+        "alert_id": "junction:C2:MEDIUM:1800",
+        "entity_type": "junction",
+        "entity_id": "C2",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.2692,
+        "since_s": 1800.0,
+        "is_new": true,
+        "message": "Junction C2: MEDIUM congestion (score 0.27, mainly speed drop on B2C2, averaged over the last 70 s). Right now: 2 stopped vehicles, longest queue 14 m, mean wait 1 s."
+      },
+      {
+        "alert_id": "road:A2B2:MEDIUM:1770",
+        "entity_type": "road",
+        "entity_id": "A2B2",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.5324,
+        "since_s": 1770.0,
+        "is_new": false,
+        "message": "Road A2B2 (approach to B2): MEDIUM congestion (score 0.53, averaged over the last 70 s). Right now: 14 vehicles, 4 stopped, queue 141 m."
+      },
+      {
+        "alert_id": "road:B1A1:MEDIUM:1760",
+        "entity_type": "road",
+        "entity_id": "B1A1",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.3629,
+        "since_s": 1760.0,
+        "is_new": false,
+        "message": "Road B1A1 (approach to A1): MEDIUM congestion (score 0.36, averaged over the last 70 s). Right now: 6 vehicles, 5 stopped, queue 39 m."
+      },
+      {
+        "alert_id": "road:A1A2:MEDIUM:1725",
+        "entity_type": "road",
+        "entity_id": "A1A2",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.299,
+        "since_s": 1725.0,
+        "is_new": false,
+        "message": "Road A1A2 (approach to A2): MEDIUM congestion (score 0.30, averaged over the last 70 s). Right now: 4 vehicles, 3 stopped, queue 21 m."
+      },
+      {
+        "alert_id": "road:B0B1:MEDIUM:1760",
+        "entity_type": "road",
+        "entity_id": "B0B1",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.2832,
+        "since_s": 1760.0,
+        "is_new": false,
+        "message": "Road B0B1 (approach to B1): MEDIUM congestion (score 0.28, averaged over the last 70 s). Right now: 4 vehicles, 4 stopped, queue 28 m."
+      },
+      {
+        "alert_id": "road:B2C2:MEDIUM:1800",
+        "entity_type": "road",
+        "entity_id": "B2C2",
+        "level": "MEDIUM",
+        "severity": "warning",
+        "score": 0.2692,
+        "since_s": 1800.0,
+        "is_new": true,
+        "message": "Road B2C2 (approach to C2): MEDIUM congestion (score 0.27, averaged over the last 70 s). Right now: 6 vehicles, 0 stopped, queue 0 m."
+      }
+    ],
+    "attention_junctions": [
+      {
+        "rank": 1,
+        "junction_id": "A1",
+        "level": "HIGH",
+        "score": 0.8099,
+        "reason": "HIGH congestion for 335 s",
+        "worst_edge_id": "left1A1",
+        "max_queue_length_m": 238.55,
+        "mean_waiting_time_s": 11.08
+      },
+      {
+        "rank": 2,
+        "junction_id": "B0",
+        "level": "HIGH",
+        "score": 0.7663,
+        "reason": "HIGH congestion for 215 s",
+        "worst_edge_id": "bottom1B0",
+        "max_queue_length_m": 114.6,
+        "mean_waiting_time_s": 3.51
+      },
+      {
+        "rank": 3,
+        "junction_id": "A2",
+        "level": "MEDIUM",
+        "score": 0.299,
+        "reason": "MEDIUM congestion has lasted 75 s",
+        "worst_edge_id": "A1A2",
+        "max_queue_length_m": 21.0,
+        "mean_waiting_time_s": 4.4
+      }
+    ]
+  }
