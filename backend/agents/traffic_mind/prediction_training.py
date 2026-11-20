@@ -36,7 +36,6 @@ from .traffic_predictor import (
     LEVELS,
     FeatureBuilder,
     ModelBundle,
-    classify_scores,
     feature_columns,
     make_model_info,
     persistence_levels,
