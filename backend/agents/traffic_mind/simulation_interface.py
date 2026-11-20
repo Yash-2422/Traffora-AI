@@ -46,6 +46,8 @@ from .schemas import (
     NetworkTopology,
     RawEdgeObservation,
     RawObservation,
+    RawSignalPhase,
+    RawSignalProgram,
     RawSignalObservation,
 )
 
@@ -322,6 +324,31 @@ class SimulationInterface:
             self._conn = None
             raise SimulationConnectionError(f"Lost connection to SUMO: {exc}") from exc
         return self._topology
+
+    def read_signal_programs(self) -> Dict[str, RawSignalProgram]:
+        """Each signalised junction's current signal program (read only).
+
+        Returns the phases (state string and duration) and the incoming road of every
+        signal link; ``signal_controller.build_signal_program`` turns this into stages.
+        """
+        conn = self._require_running()
+        try:
+            programs: Dict[str, RawSignalProgram] = {}
+            for tls_id in sorted(conn.trafficlight.getIDList()):
+                program_id = conn.trafficlight.getProgram(tls_id)
+                logics = conn.trafficlight.getAllProgramLogics(tls_id)
+                logic = next((lg for lg in logics if lg.programID == program_id), logics[0])
+                links = conn.trafficlight.getControlledLinks(tls_id)
+                programs[tls_id] = RawSignalProgram(
+                    junction_id=tls_id,
+                    phases=[RawSignalPhase(state=ph.state, duration_s=float(ph.duration))
+                            for ph in logic.phases],
+                    link_edges=[group[0][0].rsplit("_", 1)[0] if group else None for group in links],
+                )
+        except (FatalTraCIError, TraCIException) as exc:
+            self._conn = None
+            raise SimulationConnectionError(f"Lost connection to SUMO: {exc}") from exc
+        return programs
 
     def read_observation(self) -> RawObservation:
         """Raw per-road and per-signal readings at the current simulation time."""
