@@ -1,0 +1,499 @@
+{
+    "status": "ok",
+    "mode": "recommend_only",
+    "timestamp_s": 1800.0,
+    "summary": {
+      "junctions_rebalance": 5,
+      "junctions_keep": 4,
+      "immediate_actions": 2
+    },
+    "recommendations": [
+      {
+        "junction_id": "A0",
+        "level": "LOW",
+        "predicted_level": "MEDIUM",
+        "priority": "medium",
+        "action": "keep",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "A1A0",
+              "bottom0A0"
+            ],
+            "demand": 0.0752,
+            "current_green_s": 30.0,
+            "recommended_green_s": 30.0,
+            "change_s": 0.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "B0A0",
+              "left0A0"
+            ],
+            "demand": 0.179,
+            "current_green_s": 30.0,
+            "recommended_green_s": 30.0,
+            "change_s": 0.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "none",
+          "extend_s": 0.0,
+          "reason": ""
+        },
+        "reason": "Traffic is light on every approach; keep the current plan.",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      },
+      {
+        "junction_id": "A1",
+        "level": "HIGH",
+        "predicted_level": "HIGH",
+        "priority": "high",
+        "action": "rebalance",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "A0A1",
+              "A2A1"
+            ],
+            "demand": 0.059,
+            "current_green_s": 30.0,
+            "recommended_green_s": 20.0,
+            "change_s": -10.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "B1A1",
+              "left1A1"
+            ],
+            "demand": 0.8099,
+            "current_green_s": 30.0,
+            "recommended_green_s": 40.0,
+            "change_s": 10.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "none",
+          "extend_s": 0.0,
+          "reason": ""
+        },
+        "reason": "Stage 2 (B1A1, left1A1) is the busiest (score 0.81 vs 0.06); green time moves toward it: stage 1 (A0A1, A2A1): 30 s -> 20 s; stage 2 (B1A1, left1A1): 30 s -> 40 s. The cycle length stays the same.",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      },
+      {
+        "junction_id": "A2",
+        "level": "MEDIUM",
+        "predicted_level": "LOW",
+        "priority": "medium",
+        "action": "rebalance",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "A1A2",
+              "top0A2"
+            ],
+            "demand": 0.299,
+            "current_green_s": 30.0,
+            "recommended_green_s": 40.0,
+            "change_s": 10.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "B2A2",
+              "left2A2"
+            ],
+            "demand": 0.0958,
+            "current_green_s": 30.0,
+            "recommended_green_s": 20.0,
+            "change_s": -10.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "end_green_early",
+          "extend_s": 0.0,
+          "reason": "Stage 2 has almost no traffic (score 0.10) while another stage is waiting (score 0.30): its green can end now (it already ran 15 s; yellow and all-red still follow in full)."
+        },
+        "reason": "Stage 1 (A1A2, top0A2) is the busiest (score 0.30 vs 0.10); green time moves toward it: stage 1 (A1A2, top0A2): 30 s -> 40 s; stage 2 (B2A2, left2A2): 30 s -> 20 s. The cycle length stays the same. Stage 2 has almost no traffic (score 0.10) while another stage is waiting (score 0.30): its green can end now (it already ran 15 s; yellow and all-red still follow in full).",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      },
+      {
+        "junction_id": "B0",
+        "level": "HIGH",
+        "predicted_level": "HIGH",
+        "priority": "high",
+        "action": "rebalance",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "B1B0",
+              "bottom1B0"
+            ],
+            "demand": 0.7663,
+            "current_green_s": 30.0,
+            "recommended_green_s": 40.0,
+            "change_s": 10.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "A0B0",
+              "C0B0"
+            ],
+            "demand": 0.1096,
+            "current_green_s": 30.0,
+            "recommended_green_s": 20.0,
+            "change_s": -10.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "none",
+          "extend_s": 0.0,
+          "reason": ""
+        },
+        "reason": "Stage 1 (B1B0, bottom1B0) is the busiest (score 0.77 vs 0.11); green time moves toward it: stage 1 (B1B0, bottom1B0): 30 s -> 40 s; stage 2 (A0B0, C0B0): 30 s -> 20 s. The cycle length stays the same.",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      },
+      {
+        "junction_id": "B1",
+        "level": "MEDIUM",
+        "predicted_level": "LOW",
+        "priority": "medium",
+        "action": "rebalance",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "B0B1",
+              "B2B1"
+            ],
+            "demand": 0.2832,
+            "current_green_s": 30.0,
+            "recommended_green_s": 40.0,
+            "change_s": 10.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "A1B1",
+              "C1B1"
+            ],
+            "demand": 0.0194,
+            "current_green_s": 30.0,
+            "recommended_green_s": 20.0,
+            "change_s": -10.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "end_green_early",
+          "extend_s": 0.0,
+          "reason": "Stage 2 has almost no traffic (score 0.02) while another stage is waiting (score 0.28): its green can end now (it already ran 15 s; yellow and all-red still follow in full)."
+        },
+        "reason": "Stage 1 (B0B1, B2B1) is the busiest (score 0.28 vs 0.02); green time moves toward it: stage 1 (B0B1, B2B1): 30 s -> 40 s; stage 2 (A1B1, C1B1): 30 s -> 20 s. The cycle length stays the same. Stage 2 has almost no traffic (score 0.02) while another stage is waiting (score 0.28): its green can end now (it already ran 15 s; yellow and all-red still follow in full).",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      },
+      {
+        "junction_id": "B2",
+        "level": "MEDIUM",
+        "predicted_level": "HIGH",
+        "priority": "high",
+        "action": "rebalance",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "B1B2",
+              "top1B2"
+            ],
+            "demand": 0.2232,
+            "current_green_s": 30.0,
+            "recommended_green_s": 20.0,
+            "change_s": -10.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "A2B2",
+              "C2B2"
+            ],
+            "demand": 0.5324,
+            "current_green_s": 30.0,
+            "recommended_green_s": 40.0,
+            "change_s": 10.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "none",
+          "extend_s": 0.0,
+          "reason": ""
+        },
+        "reason": "Stage 2 (A2B2, C2B2) is the busiest (score 0.53 vs 0.22); green time moves toward it: stage 1 (B1B2, top1B2): 30 s -> 20 s; stage 2 (A2B2, C2B2): 30 s -> 40 s. The cycle length stays the same.",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      },
+      {
+        "junction_id": "C0",
+        "level": "LOW",
+        "predicted_level": "LOW",
+        "priority": "none",
+        "action": "keep",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "C1C0",
+              "bottom2C0"
+            ],
+            "demand": 0.0868,
+            "current_green_s": 30.0,
+            "recommended_green_s": 30.0,
+            "change_s": 0.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "B0C0",
+              "right0C0"
+            ],
+            "demand": 0.115,
+            "current_green_s": 30.0,
+            "recommended_green_s": 30.0,
+            "change_s": 0.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "none",
+          "extend_s": 0.0,
+          "reason": ""
+        },
+        "reason": "Traffic is light on every approach; keep the current plan.",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      },
+      {
+        "junction_id": "C1",
+        "level": "LOW",
+        "predicted_level": "LOW",
+        "priority": "none",
+        "action": "keep",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "C0C1",
+              "C2C1"
+            ],
+            "demand": 0.1017,
+            "current_green_s": 30.0,
+            "recommended_green_s": 30.0,
+            "change_s": 0.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "B1C1",
+              "right1C1"
+            ],
+            "demand": 0.0497,
+            "current_green_s": 30.0,
+            "recommended_green_s": 30.0,
+            "change_s": 0.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "none",
+          "extend_s": 0.0,
+          "reason": ""
+        },
+        "reason": "Traffic is light on every approach; keep the current plan.",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      },
+      {
+        "junction_id": "C2",
+        "level": "MEDIUM",
+        "predicted_level": "MEDIUM",
+        "priority": "medium",
+        "action": "keep",
+        "stages": [
+          {
+            "stage_id": 1,
+            "edges": [
+              "C1C2",
+              "top2C2"
+            ],
+            "demand": 0.1805,
+            "current_green_s": 30.0,
+            "recommended_green_s": 30.0,
+            "change_s": 0.0
+          },
+          {
+            "stage_id": 2,
+            "edges": [
+              "B2C2",
+              "right2C2"
+            ],
+            "demand": 0.2692,
+            "current_green_s": 30.0,
+            "recommended_green_s": 30.0,
+            "change_s": 0.0
+          }
+        ],
+        "yellow_s": 3.0,
+        "all_red_s": 2.0,
+        "cycle_s": 70.0,
+        "current_phase": 3,
+        "phase_elapsed_s": 15.0,
+        "immediate": {
+          "action": "none",
+          "extend_s": 0.0,
+          "reason": ""
+        },
+        "reason": "Every approach is busy to a similar degree, so moving green time would not help; keep the current plan (relief would need to come from upstream junctions).",
+        "safety": {
+          "validated": true,
+          "rules_checked": [
+            "every_stage_served",
+            "min_green",
+            "max_green",
+            "yellow_not_shortened",
+            "all_red_not_shortened",
+            "max_cycle",
+            "max_change_per_step"
+          ]
+        }
+      }
+    ],
+    "notes": []
+  }

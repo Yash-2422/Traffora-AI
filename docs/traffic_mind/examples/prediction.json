@@ -1,0 +1,161 @@
+{
+    "status": "ok",
+    "timestamp_s": 1800.0,
+    "horizon_s": 60,
+    "method": "ml",
+    "model": {
+      "name": "gradient_boosting",
+      "horizon_s": 60,
+      "feature_count": 35,
+      "trained_at": "2026-11-20T06:28:49+00:00",
+      "training_rows": 62640,
+      "training_runs": 30,
+      "test_macro_f1": 0.9
+    },
+    "history_available_s": 1795.0,
+    "predictions": [
+      {
+        "junction_id": "A0",
+        "current_level": "LOW",
+        "current_score": 0.179,
+        "predicted_level": "MEDIUM",
+        "probabilities": {
+          "LOW": 0.3187,
+          "MEDIUM": 0.6811,
+          "HIGH": 0.0002
+        },
+        "confidence": 0.6811,
+        "expected_change": "worsening",
+        "method": "ml"
+      },
+      {
+        "junction_id": "A1",
+        "current_level": "HIGH",
+        "current_score": 0.8099,
+        "predicted_level": "HIGH",
+        "probabilities": {
+          "LOW": 0.0,
+          "MEDIUM": 0.0,
+          "HIGH": 1.0
+        },
+        "confidence": 1.0,
+        "expected_change": "steady",
+        "method": "ml"
+      },
+      {
+        "junction_id": "A2",
+        "current_level": "MEDIUM",
+        "current_score": 0.299,
+        "predicted_level": "LOW",
+        "probabilities": {
+          "LOW": 0.5203,
+          "MEDIUM": 0.4796,
+          "HIGH": 0.0001
+        },
+        "confidence": 0.5203,
+        "expected_change": "improving",
+        "method": "ml"
+      },
+      {
+        "junction_id": "B0",
+        "current_level": "HIGH",
+        "current_score": 0.7663,
+        "predicted_level": "HIGH",
+        "probabilities": {
+          "LOW": 0.0,
+          "MEDIUM": 0.0,
+          "HIGH": 1.0
+        },
+        "confidence": 1.0,
+        "expected_change": "steady",
+        "method": "ml"
+      },
+      {
+        "junction_id": "B1",
+        "current_level": "MEDIUM",
+        "current_score": 0.2832,
+        "predicted_level": "LOW",
+        "probabilities": {
+          "LOW": 0.7011,
+          "MEDIUM": 0.2988,
+          "HIGH": 0.0001
+        },
+        "confidence": 0.7011,
+        "expected_change": "improving",
+        "method": "ml"
+      },
+      {
+        "junction_id": "B2",
+        "current_level": "MEDIUM",
+        "current_score": 0.5324,
+        "predicted_level": "HIGH",
+        "probabilities": {
+          "LOW": 0.0,
+          "MEDIUM": 0.0055,
+          "HIGH": 0.9945
+        },
+        "confidence": 0.9945,
+        "expected_change": "worsening",
+        "method": "ml"
+      },
+      {
+        "junction_id": "C0",
+        "current_level": "LOW",
+        "current_score": 0.115,
+        "predicted_level": "LOW",
+        "probabilities": {
+          "LOW": 0.9946,
+          "MEDIUM": 0.0054,
+          "HIGH": 0.0
+        },
+        "confidence": 0.9946,
+        "expected_change": "steady",
+        "method": "ml"
+      },
+      {
+        "junction_id": "C1",
+        "current_level": "LOW",
+        "current_score": 0.1017,
+        "predicted_level": "LOW",
+        "probabilities": {
+          "LOW": 0.847,
+          "MEDIUM": 0.153,
+          "HIGH": 0.0
+        },
+        "confidence": 0.847,
+        "expected_change": "steady",
+        "method": "ml"
+      },
+      {
+        "junction_id": "C2",
+        "current_level": "MEDIUM",
+        "current_score": 0.2692,
+        "predicted_level": "MEDIUM",
+        "probabilities": {
+          "LOW": 0.4235,
+          "MEDIUM": 0.5763,
+          "HIGH": 0.0002
+        },
+        "confidence": 0.5763,
+        "expected_change": "steady",
+        "method": "ml"
+      }
+    ],
+    "early_warnings": [
+      {
+        "junction_id": "B2",
+        "current_level": "MEDIUM",
+        "predicted_level": "HIGH",
+        "confidence": 0.9945,
+        "message": "Junction B2: MEDIUM now, HIGH expected in 60 s (99% confidence)."
+      },
+      {
+        "junction_id": "A0",
+        "current_level": "LOW",
+        "predicted_level": "MEDIUM",
+        "confidence": 0.6811,
+        "message": "Junction A0: LOW now, MEDIUM expected in 60 s (68% confidence)."
+      }
+    ],
+    "notes": []
+  }
