@@ -54,3 +54,15 @@ class UnsafeSignalPlanError(TrafficMindError):
     """A signal plan violates a safety rule (min/max green, clearance, phases)."""
 
     code = "UNSAFE_SIGNAL_PLAN"
+
+
+class PredictionError(TrafficMindError):
+    """Traffic prediction could not be carried out."""
+
+    code = "PREDICTION_ERROR"
+
+
+class ModelLoadError(PredictionError):
+    """A trained prediction model is missing, unreadable, or does not match the code."""
+
+    code = "MODEL_LOAD_ERROR"
