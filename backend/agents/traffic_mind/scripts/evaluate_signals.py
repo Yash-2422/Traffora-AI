@@ -27,7 +27,7 @@ from ..config import MonitorConfig, SimulationConfig, configure_logging
 from ..congestion_detector import CongestionDetector
 from ..exceptions import TrafficMindError
 from ..schemas import SignalProgram
-from ..signal_controller import SignalAdvisor, build_signal_program
+from ..signal_controller import SignalAdvisor
 from ..simulation_interface import SimulationInterface
 from ..traffic_monitor import TrafficMonitor
 
@@ -149,7 +149,7 @@ def main(argv=None) -> int:
             results[scenario] = {"fixed": fixed, "adaptive": adaptive}
             print(f"\n{scenario} (average of {len(args.seeds)} run(s), first {args.until} s)")
             print(f"{'metric':<36}{'fixed timing':>13}{'recommended':>13}{'change':>9}")
-            for key, label, better in METRICS:
+            for key, label, _better in METRICS:
                 a = statistics.fmean(r[key] for r in fixed)
                 b = statistics.fmean(r[key] for r in adaptive)
                 change = (b - a) / a * 100 if a else 0.0
