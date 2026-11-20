@@ -86,7 +86,7 @@ def _build_profile(history: pd.DataFrame) -> Dict[tuple, float]:
     """Average occupancy per (zone, weekend?, hour). This is the 'usual pattern'."""
     data = history.copy()
     data["hour"] = data["timestamp"].dt.hour
-    data["is_weekend"] = (data["timestamp"].dt.dayofweek >= 5).astype(int)
+    data["is_weekend"] = (data["timestamp"].dt.day_of_week >= 5).astype(int)
     grouped = data.groupby(["zone_id", "is_weekend", "hour"])["occupancy_pct"].mean()
     return {(z, int(w), int(h)): float(v) for (z, w, h), v in grouped.items()}
 
@@ -112,7 +112,7 @@ def _build_training_table(history: pd.DataFrame, steps: int, zone_codes: Dict[st
     df["target_pct"] = grouped.shift(-steps)
     df["hour"] = df["timestamp"].dt.hour
     df["minute"] = df["timestamp"].dt.minute
-    df["day_of_week"] = df["timestamp"].dt.dayofweek
+    df["day_of_week"] = df["timestamp"].dt.day_of_week
     df["is_weekend"] = (df["day_of_week"] >= 5).astype(int)
     df["zone_code"] = df["zone_id"].map(zone_codes)
     return df.dropna(subset=["prev_pct", "target_pct", "zone_code"])
