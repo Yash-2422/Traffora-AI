@@ -187,3 +187,71 @@ class PredictionConfig:
     def model_path(self, horizon_s: Optional[int] = None) -> Path:
         """Where the trained model for a horizon is stored."""
         return MODEL_DIR / f"traffic_model_h{horizon_s or self.horizon_s}.joblib"
+
+
+@dataclass(frozen=True)
+class SignalConfig:
+    """Safety limits and tuning for signal recommendations.
+
+    The recommender only *suggests*; these limits are what every suggestion (and any plan
+    checked by ``validate_plan``) must respect. The all-red and yellow times of the
+    existing program are never shortened.
+
+    Green times
+        ``min_green_s`` / ``max_green_s``   limits for every stage's green.
+        ``max_change_s``                    most a green may change from one recommendation to
+                                            the next (keeps changes gradual).
+        ``max_cycle_s``                     longest allowed full cycle (green + clearance).
+    Clearance
+        ``min_yellow_s`` / ``min_all_red_s``  floors; the program's own values apply if larger.
+    Rebalancing
+        ``imbalance_deadband``   demand gap between stages below which nothing changes.
+        ``min_demand_to_act``    no green change unless the busiest stage's score reaches this
+                                 (light traffic everywhere needs no adjustment).
+        ``demand_epsilon``       keeps an idle stage from being given zero demand weight.
+    Current-phase actions
+        ``extend_step_s`` / ``max_extension_s``   a running green may be extended in steps up to this.
+        ``extend_when_remaining_s``               only when this little green is left.
+        ``end_early_demand``                      a green may end early if its demand is below this
+                                                  and another stage is waiting.
+    """
+
+    min_green_s: int = 15
+    max_green_s: int = 45
+    max_change_s: int = 10
+    max_cycle_s: int = 90
+    min_yellow_s: int = 3
+    min_all_red_s: int = 2
+    imbalance_deadband: float = 0.15
+    min_demand_to_act: float = 0.20
+    demand_epsilon: float = 0.05
+    extend_step_s: int = 5
+    max_extension_s: int = 15
+    extend_when_remaining_s: int = 8
+    end_early_demand: float = 0.10
+
+    def __post_init__(self) -> None:
+        if self.min_green_s < 5:
+            raise ValueError("min_green_s must be at least 5 seconds")
+        if self.max_green_s < self.min_green_s:
+            raise ValueError("max_green_s must be >= min_green_s")
+        if self.max_change_s < 1:
+            raise ValueError("max_change_s must be at least 1")
+        if self.min_yellow_s < 3:
+            raise ValueError("min_yellow_s must be at least 3 seconds")
+        if self.min_all_red_s < 1:
+            raise ValueError("min_all_red_s must be at least 1 second")
+        if self.max_cycle_s < 2 * (self.min_green_s + self.min_yellow_s + self.min_all_red_s):
+            raise ValueError("max_cycle_s is too short for two minimum stages")
+        if not 0.0 < self.imbalance_deadband < 1.0:
+            raise ValueError("imbalance_deadband must be between 0 and 1")
+        if not 0.0 <= self.min_demand_to_act < 1.0:
+            raise ValueError("min_demand_to_act must be between 0 and 1")
+        if not 0.0 < self.demand_epsilon < 1.0:
+            raise ValueError("demand_epsilon must be between 0 and 1")
+        if self.extend_step_s < 1 or self.max_extension_s < self.extend_step_s:
+            raise ValueError("need 1 <= extend_step_s <= max_extension_s")
+        if self.extend_when_remaining_s < 1:
+            raise ValueError("extend_when_remaining_s must be at least 1")
+        if not 0.0 <= self.end_early_demand < 1.0:
+            raise ValueError("end_early_demand must be between 0 and 1")
