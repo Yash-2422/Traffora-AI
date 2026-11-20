@@ -369,37 +369,44 @@ class SimulationInterface:
             raise SimulationConnectionError(f"Lost connection to SUMO: {exc}") from exc
 
     def _queue_length_m(self, info: EdgeInfo) -> float:
-        """Length (m) of the queue measured back from the stop line.
+        """Length (m) of the queue, measured from the stop line back to its last car.
 
-        Slow vehicles (below ``queue_speed_mps``) form one queue when the first
-        one is within ``queue_head_tolerance_m`` of the stop line and each next
-        one is within ``queue_gap_m`` of the previous. The longest queue over
-        the road's lanes is reported. Both tolerances exist because a queue
-        that is discharging has creeping cars at its head, and cars that have
-        already pulled away in front of the standing queue.
+        Slow vehicles (below ``queue_speed_mps``) whose spacing is at most
+        ``queue_gap_m`` form a chain. A chain counts as a queue when
+
+        * its first car is within ``queue_head_tolerance_m`` of the stop line, or
+        * it has at least ``queue_min_standing_vehicles`` cars.
+
+        The second rule matters while a long queue discharges: the first cars have
+        already pulled away (and move faster than ``queue_speed_mps``) while the
+        rest still stand, so the standing chain does not start at the stop line.
+        The road in between is occupied by the discharging cars, so the queue still
+        extends from the stop line to the back of the standing chain.
+        The longest queue over the road's lanes is reported.
         """
         conn = self._require_running()
-        gap = self.config.queue_gap_m
-        head_tolerance = self.config.queue_head_tolerance_m
-        max_speed = self.config.queue_speed_mps
+        cfg = self.config
         longest = 0.0
         for lane_index in range(info.lane_count):
             lane_id = f"{info.edge_id}_{lane_index}"
-            positions = sorted(
+            slow = sorted(
                 (
-                    conn.vehicle.getLanePosition(vid)
+                    info.length_m - conn.vehicle.getLanePosition(vid)   # distance to stop line
                     for vid in conn.lane.getLastStepVehicleIDs(lane_id)
-                    if conn.vehicle.getSpeed(vid) < max_speed
+                    if conn.vehicle.getSpeed(vid) < cfg.queue_speed_mps
                 ),
-                reverse=True,  # front of the queue first
-            )
-            if not positions or info.length_m - positions[0] > head_tolerance:
-                continue  # no slow vehicle near the stop line
-            back = positions[0]
-            for pos in positions[1:]:
-                if back - pos > gap:
-                    break
-                back = pos
-            length = (info.length_m - back) + self.config.vehicle_length_m
-            longest = max(longest, min(length, info.length_m))
+            )  # nearest to the stop line first
+            if not slow:
+                continue
+            chains = [[slow[0]]]
+            for dist in slow[1:]:
+                if dist - chains[-1][-1] <= cfg.queue_gap_m:
+                    chains[-1].append(dist)
+                else:
+                    chains.append([dist])
+            for chain in chains:
+                near_stop_line = chain[0] <= cfg.queue_head_tolerance_m
+                if near_stop_line or len(chain) >= cfg.queue_min_standing_vehicles:
+                    length = chain[-1] + cfg.vehicle_length_m
+                    longest = max(longest, min(length, info.length_m))
         return longest
