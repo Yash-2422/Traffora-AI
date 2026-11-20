@@ -243,8 +243,16 @@ def _pick_destinations(entry_edge, entry_side, exits, rng):
     return result
 
 
-def build_routes(profile: str, seed: int = 7) -> Path:
-    """Write ``scenarios/<profile>.rou.xml`` for the given profile."""
+def build_routes(
+    profile: str,
+    seed: int = 7,
+    windows: Optional[List[Window]] = None,
+    out_dir: Optional[Path] = None,
+) -> Path:
+    """Write ``<out_dir>/<profile>.rou.xml`` (default folder: ``scenarios``).
+
+    ``windows`` overrides the named profile's demand (used for random scenarios).
+    """
     import sumolib  # imported here so --help works without SUMO tools
 
     net = sumolib.net.readNet(str(NET_FILE))
@@ -261,7 +269,7 @@ def build_routes(profile: str, seed: int = 7) -> Path:
     )
 
     flows = []
-    for window in PROFILES[profile]:
+    for window in (windows if windows is not None else PROFILES[profile]):
         for edge, side in entries:
             node_id = edge.getFromNode().getID()
             vph = window.overrides.get(node_id, window.rate[side])
@@ -284,17 +292,20 @@ def build_routes(profile: str, seed: int = 7) -> Path:
     for _, attrs in sorted(flows, key=lambda item: item[0]):
         ET.SubElement(root, "flow", attrs)
 
-    SCENARIO_DIR.mkdir(parents=True, exist_ok=True)
-    out = SCENARIO_DIR / f"{profile}.rou.xml"
+    folder = Path(out_dir) if out_dir is not None else SCENARIO_DIR
+    folder.mkdir(parents=True, exist_ok=True)
+    out = folder / f"{profile}.rou.xml"
     ET.indent(root)
     ET.ElementTree(root).write(out, encoding="utf-8", xml_declaration=True)
     logger.info("Routes written: %s (%d flows)", out, len(flows))
     return out
 
 
-def build_sumocfg(profile: str) -> Path:
-    """Write ``scenarios/<profile>.sumocfg``."""
-    net_rel = Path(os.path.relpath(NET_FILE, SCENARIO_DIR)).as_posix()
+def build_sumocfg(profile: str, out_dir: Optional[Path] = None) -> Path:
+    """Write ``<out_dir>/<profile>.sumocfg`` (default folder: ``scenarios``)."""
+    folder = Path(out_dir) if out_dir is not None else SCENARIO_DIR
+    folder.mkdir(parents=True, exist_ok=True)
+    net_rel = Path(os.path.relpath(NET_FILE, folder)).as_posix()
     root = ET.Element("configuration")
     inp = ET.SubElement(root, "input")
     ET.SubElement(inp, "net-file", value=net_rel)
@@ -309,11 +320,56 @@ def build_sumocfg(profile: str) -> Path:
     # Waiting time is accumulated over a 5 minute window (used by the monitor).
     ET.SubElement(proc, "waiting-time-memory", value="300")
 
-    out = SCENARIO_DIR / f"{profile}.sumocfg"
+    out = folder / f"{profile}.sumocfg"
     ET.indent(root)
     ET.ElementTree(root).write(out, encoding="utf-8", xml_declaration=True)
     logger.info("Config written: %s", out)
     return out
+
+
+# --------------------------------------------------------------------------- #
+# Random scenarios (used to generate training data)
+# --------------------------------------------------------------------------- #
+# Entry nodes created by netgenerate for a 3x3 grid with attached border roads.
+ENTRY_NODES = tuple(f"{side}{k}" for side in ("left", "right", "top", "bottom") for k in range(3))
+
+
+def random_profile(seed: int, duration: int = SIM_DURATION) -> List[Window]:
+    """A varied demand profile: 3-6 periods, each uniform, directional or with a local surge.
+
+    Rates stay below what gridlocks the network (about 400 vph per entry sustained),
+    but include busy periods so that all congestion levels occur in the data.
+    """
+    rng = random.Random(seed)
+    count = rng.randint(3, 6)
+    cuts = sorted(rng.sample(range(240, duration - 239, 60), count - 1))
+    bounds = [0] + cuts + [duration]
+    windows: List[Window] = []
+    for i in range(count):
+        begin, end = bounds[i], bounds[i + 1]
+        base = rng.randint(80, 300)
+        kind = rng.choice(("uniform", "directional", "surge"))
+        overrides: Dict[str, int] = {}
+        if kind == "directional":
+            heavy = rng.randint(base, 420)
+            if rng.random() < 0.5:
+                rate = {"west": heavy, "east": heavy, "north": base // 2, "south": base // 2}
+            else:
+                rate = {"west": base // 2, "east": base // 2, "north": heavy, "south": heavy}
+        else:
+            rate = _uniform(base)
+            if kind == "surge":
+                for node in rng.sample(ENTRY_NODES, rng.randint(1, 2)):
+                    overrides[node] = rng.randint(500, 850)
+        windows.append(Window(begin, end, f"w{i}_{kind}", rate, overrides))
+    return windows
+
+
+def build_random_scenario(name: str, seed: int, out_dir: Path) -> Path:
+    """Build routes + config for one random scenario in ``out_dir``; returns the .sumocfg path."""
+    build_network()
+    build_routes(name, seed=seed, windows=random_profile(seed), out_dir=out_dir)
+    return build_sumocfg(name, out_dir=out_dir)
 
 
 # --------------------------------------------------------------------------- #
