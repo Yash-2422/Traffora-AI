@@ -47,7 +47,6 @@ from .config import MODEL_DIR, CongestionConfig, PredictionConfig
 from .congestion_detector import CongestionDetector
 from .exceptions import InvalidTrafficDataError, ModelLoadError, PredictionError
 from .schemas import (
-    CongestionLevel,
     CongestionReport,
     EarlyWarning,
     JunctionPrediction,
