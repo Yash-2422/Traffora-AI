@@ -12,6 +12,7 @@ import json
 import logging
 import os
 import random
+import re
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, field
@@ -104,6 +105,38 @@ def _rel(target: Path, start: Path) -> str:
     return os.path.relpath(target, start).replace("\\", "/")
 
 
+_PATH_FIELDS = ("net_file", "vtypes_file", "background_routes_file", "ambulance_routes_file",
+                "hospital_file", "baseline_cfg", "priority_cfg", "baseline_tripinfo", "priority_tripinfo")
+
+
+def _portable_meta(files: "ScenarioFiles", scenario_dir: Path) -> dict:
+    """scenario.json content with every path relative to scenario.json itself (no machine-specific paths)."""
+    meta = files.to_dict()
+    for key in _PATH_FIELDS:
+        meta[key] = _rel(Path(meta[key]), scenario_dir)
+    return meta
+
+
+def load_scenario(scenario_dir: Path = config.SCENARIO_DIR) -> ScenarioFiles:
+    """Read scenario.json and resolve its relative paths against its own folder."""
+    scenario_dir = Path(scenario_dir)
+    meta_path = scenario_dir / config.SCENARIO_META_FILENAME
+    if not meta_path.is_file():
+        raise ScenarioError("SCENARIO_NOT_BUILT", f"{meta_path} not found; run scenario_builder first")
+    meta = json.loads(meta_path.read_text())
+    for key in _PATH_FIELDS:
+        meta[key] = str((scenario_dir / meta[key]).resolve())
+    return ScenarioFiles(**meta)
+
+
+def _strip_machine_paths(net_path: Path) -> None:
+    """netgenerate records the absolute output path in the file header; keep only the file name."""
+    text = net_path.read_text(encoding="utf-8")
+    cleaned = re.sub(r'(<output-file value=")[^"]*(")', lambda m: f"{m.group(1)}{net_path.name}{m.group(2)}", text)
+    if cleaned != text:
+        net_path.write_text(cleaned, encoding="utf-8")
+
+
 def _generate_network(spec: ScenarioSpec, net_path: Path) -> None:
     netgen = find_binary("netgenerate")
     if netgen is None:
@@ -122,6 +155,7 @@ def _generate_network(spec: ScenarioSpec, net_path: Path) -> None:
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode != 0:
         raise ScenarioError("NETWORK_BUILD_FAILED", f"netgenerate failed: {res.stderr.strip()[:500]}")
+    _strip_machine_paths(net_path)
 
 
 def _write_vtypes(path: Path, spec: ScenarioSpec) -> None:
@@ -243,7 +277,8 @@ def build_scenario(
         reference_route_edges=[e.getID() for e in path_edges],
         reference_route_length_m=round(sum(e.getLength() for e in path_edges), 1),
     )
-    (scenario_dir / config.SCENARIO_META_FILENAME).write_text(json.dumps(files.to_dict(), indent=2))
+    (scenario_dir / config.SCENARIO_META_FILENAME).write_text(
+        json.dumps(_portable_meta(files, scenario_dir), indent=2) + "\n")
     logger.info("Scenario '%s' built: %d signals, reference route %d edges / %.0f m",
                 spec.name, len(files.tls_ids), len(path_edges), files.reference_route_length_m)
     return files

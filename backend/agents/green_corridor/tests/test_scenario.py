@@ -96,3 +96,24 @@ def test_ambulance_runs_in_sumo_and_reaches_hospital(tmp_path):
     tripinfo = ET.parse(f.baseline_tripinfo).getroot()
     amb = next(x for x in tripinfo.iter("tripinfo") if x.get("id") == "amb_1")
     assert float(amb.get("duration")) > 0 and float(amb.get("routeLength")) > 1000
+
+@requires_sumo
+def test_scenario_json_has_no_machine_specific_paths(tmp_path):
+    from pathlib import Path
+    from backend.agents.green_corridor.scenario_builder import load_scenario
+    f = _build(tmp_path)
+    scn_dir = Path(f.baseline_cfg).parent
+    raw = (scn_dir / config.SCENARIO_META_FILENAME).read_text()
+    assert str(tmp_path) not in raw and "/mnt/" not in raw and ":\\" not in raw
+    assert str(tmp_path) not in Path(f.net_file).read_text()
+    loaded = load_scenario(scn_dir)
+    assert Path(loaded.net_file).is_file() and Path(loaded.baseline_cfg).is_file()
+    assert loaded.tls_ids == f.tls_ids
+
+
+def test_load_scenario_missing_file(tmp_path):
+    from backend.agents.green_corridor.scenario_builder import ScenarioError, load_scenario
+    import pytest
+    with pytest.raises(ScenarioError) as e:
+        load_scenario(tmp_path)
+    assert e.value.code == "SCENARIO_NOT_BUILT"
