@@ -1,6 +1,5 @@
 """Tests for the Matplotlib dashboard. Everything is drawn off screen (no window, no SUMO)."""
 
-import numpy as np
 import pandas as pd
 import pytest
 from matplotlib.figure import Figure
