@@ -19,7 +19,7 @@ import logging
 import sys
 from pathlib import Path
 
-from ..config import MonitorConfig, SimulationConfig, configure_logging
+from ..config import DATASET_DIR, MonitorConfig, SimulationConfig, configure_logging
 from ..congestion_detector import CongestionDetector
 from ..exceptions import TrafficMindError
 from ..signal_controller import SignalAdvisor
@@ -38,7 +38,8 @@ def main(argv=None) -> int:
     parser.add_argument("--until", type=int, default=3000, help="Stop after this many simulated seconds.")
     parser.add_argument("--live", action="store_true", help="Open a window that updates during the run.")
     parser.add_argument("--live-every", type=int, default=15, help="Redraw the live window every N simulated seconds.")
-    parser.add_argument("--save", type=Path, default=Path("traffic_mind_dashboard.png"), help="PNG to write at the end.")
+    parser.add_argument("--save", type=Path, default=DATASET_DIR / "output" / "traffic_mind_dashboard.png",
+                        help="PNG to write at the end (default: datasets/traffic_mind/output/, which git ignores).")
     parser.add_argument("--junction", help="Junction for the forecast panel (default: the busiest).")
     parser.add_argument("--theme", choices=("light", "dark"), default="light")
     parser.add_argument("--csv-dir", type=Path, help="Also write the recorded data (network.csv, junctions.csv) here.")
