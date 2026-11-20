@@ -100,3 +100,32 @@ def test_speed_threshold_is_configurable():
     cars = [(1.0, 1.0), (8.5, 1.0)]
     assert measure(cars) > 0
     assert measure(cars, SimulationConfig(queue_speed_mps=0.5)) == 0.0
+
+
+def test_long_standing_queue_behind_a_discharging_head():
+    # road left1A1 at t=1515 s in the surge scenario: the first 6 cars have pulled away
+    # (2-4 m/s) while 20+ cars still stand. This used to be reported as 0 m.
+    moving = [(0.8, 3.87), (13.0, 4.24), (25.5, 4.13), (38.2, 2.21), (48.5, 3.55)]
+    standing = [(59.7, 1.06), (68.3, 0.18)] + [(76.0 + 7.5 * i, 0.0) for i in range(21)] + [(234.1, 0.49)]
+    queue = measure(moving + standing)
+    assert queue == pytest.approx(LENGTH)   # the standing chain reaches the back of the road
+
+
+def test_two_slow_cars_far_from_the_stop_line_are_still_not_a_queue():
+    assert measure([(2.0, 12.0), (100.0, 0.0), (107.5, 0.0)]) == 0.0
+
+
+def test_three_standing_cars_far_from_the_stop_line_are_a_queue():
+    assert measure([(2.0, 12.0), (100.0, 0.0), (107.5, 0.0), (115.0, 0.0)]) == pytest.approx(120.0)
+
+
+def test_standing_chain_needs_to_be_contiguous():
+    # 3 cars standing at 100 m, then a 30 m hole, then 1 more car: the straggler is not counted
+    cars = [(2.0, 12.0), (100.0, 0.0), (107.5, 0.0), (115.0, 0.0), (150.0, 0.0)]
+    assert measure(cars) == pytest.approx(120.0)
+
+
+def test_minimum_standing_vehicles_is_configurable():
+    cars = [(2.0, 12.0), (100.0, 0.0), (107.5, 0.0)]
+    assert measure(cars) == 0.0
+    assert measure(cars, SimulationConfig(queue_min_standing_vehicles=2)) == pytest.approx(112.5)
