@@ -25,7 +25,6 @@ from __future__ import annotations
 
 import logging
 import re
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 
@@ -302,7 +301,7 @@ def draw_network_series(ax: Any, network: pd.DataFrame, th: Dict[str, Any], wind
     t = frame["time_s"] / 60.0
     ax.plot(t, frame["vehicles"], color=th["series1"], linewidth=2, label="Vehicles")
     ax.plot(t, frame["stopped"], color=th["series2"], linewidth=2, label="Stopped")
-    for column, color, label in (("vehicles", th["series1"], "Vehicles"), ("stopped", th["series2"], "Stopped")):
+    for column, label in (("vehicles", "Vehicles"), ("stopped", "Stopped")):
         ax.annotate(f"{label} {frame[column].iloc[-1]:.0f}", (t.iloc[-1], frame[column].iloc[-1]),
                     xytext=(6, 0), textcoords="offset points", fontsize=8.5, color=th["text"], va="center",
                     annotation_clip=False)
