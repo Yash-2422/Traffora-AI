@@ -329,3 +329,101 @@ class PredictionReport(_Model):
     predictions: List[JunctionPrediction]
     early_warnings: List[EarlyWarning]
     notes: List[str] = Field(default_factory=list)
+
+
+# --------------------------------------------------------------------------- #
+# Signal programs and recommendations
+# --------------------------------------------------------------------------- #
+class RawSignalPhase(_Model):
+    state: str                                   # SUMO signal state, one character per link
+    duration_s: float = Field(gt=0)
+
+
+class RawSignalProgram(_Model):
+    """A junction's fixed signal program as read from the simulation."""
+
+    junction_id: str
+    phases: List[RawSignalPhase]
+    link_edges: List[Optional[str]]              # incoming road of each signal link (by index)
+
+
+class SignalPhase(_Model):
+    index: int = Field(ge=0)
+    state: str
+    duration_s: float = Field(gt=0)
+    kind: Literal["green", "yellow", "all_red"]
+
+
+class SignalStage(_Model):
+    """One green phase and the yellow / all-red phases that follow it."""
+
+    stage_id: int = Field(ge=1)
+    green_phase: int = Field(ge=0)               # index of the green phase in ``phases``
+    clearance_phases: List[int]                  # indexes of the yellow / all-red phases after it
+    edges: List[str]                             # roads that get green in this stage
+    green_s: float = Field(gt=0)
+    yellow_s: float = Field(ge=0)
+    all_red_s: float = Field(ge=0)
+
+
+class SignalProgram(_Model):
+    junction_id: str
+    phases: List[SignalPhase]
+    stages: List[SignalStage]
+    cycle_s: float = Field(gt=0)
+
+
+class StagePlan(_Model):
+    stage_id: int
+    edges: List[str]
+    demand: float = Field(ge=0, le=1)            # worst approach congestion score of the stage
+    current_green_s: float
+    recommended_green_s: float
+    change_s: float
+
+
+class ImmediateAction(_Model):
+    """What to do with the signal phase that is running right now."""
+
+    action: Literal["none", "extend_green", "end_green_early", "in_clearance"]
+    extend_s: float = Field(default=0.0, ge=0)
+    reason: str = ""
+
+
+class SafetyCheck(_Model):
+    validated: bool
+    rules_checked: List[str]
+
+
+class JunctionSignalRecommendation(_Model):
+    junction_id: str
+    level: CongestionLevel
+    predicted_level: Optional[CongestionLevel] = None
+    priority: Literal["none", "low", "medium", "high"]
+    action: Literal["keep", "rebalance"]
+    stages: List[StagePlan]
+    yellow_s: float                              # unchanged clearance times
+    all_red_s: float
+    cycle_s: float                               # cycle length with the recommended greens
+    current_phase: Optional[int] = None
+    phase_elapsed_s: Optional[float] = None
+    immediate: ImmediateAction
+    reason: str
+    safety: SafetyCheck
+
+
+class SignalSummary(_Model):
+    junctions_rebalance: int
+    junctions_keep: int
+    immediate_actions: int
+
+
+class SignalRecommendationReport(_Model):
+    """The result of ``generate_signal_recommendation()``. Advice only: nothing is executed."""
+
+    status: str = "ok"
+    mode: Literal["recommend_only"] = "recommend_only"
+    timestamp_s: float = Field(ge=0)
+    summary: SignalSummary
+    recommendations: List[JunctionSignalRecommendation]
+    notes: List[str] = Field(default_factory=list)
