@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Tuple
 
 # backend/agents/traffic_mind/config.py -> parents[3] is the repository root.
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -54,6 +54,9 @@ class SimulationConfig:
     # The first slow vehicle may be this far from the stop line: cars at the head of
     # a discharging queue have already pulled away while the standing queue is behind.
     queue_head_tolerance_m: float = 40.0
+    # A chain of at least this many slow cars is a queue even if it does not start near
+    # the stop line (the cars in front of it are already moving: a discharging queue).
+    queue_min_standing_vehicles: int = 3
     queue_gap_m: float = 10.0
     vehicle_length_m: float = 5.0
 
@@ -145,3 +148,42 @@ class CongestionConfig:
         if min(self.escalate_after_s, self.clear_after_s, self.attention_medium_after_s,
                self.smoothing_window_s) < 0:
             raise ValueError("durations must be >= 0")
+
+
+@dataclass(frozen=True)
+class PredictionConfig:
+    """Settings for traffic prediction (features, horizons, history).
+
+    The model predicts, for every junction, the congestion level ``horizon_s`` seconds
+    ahead. Features come from the junction's recent history: current metrics, how much
+    they changed ``lags_s`` seconds ago, and a trend over ``trend_window_s`` seconds.
+    A prediction needs ``min_history_s`` of history; before that the agent falls back to
+    "the level stays as it is".
+    """
+
+    horizon_s: int = 60
+    horizons_s: Tuple[int, ...] = (30, 60, 120)   # horizons the dataset provides labels for
+    sample_interval_s: int = 5                    # seconds between snapshots
+    lags_s: Tuple[int, ...] = (30, 60)
+    trend_window_s: int = 60
+    min_history_s: int = 60
+    history_s: int = 120                          # history kept in memory
+    random_state: int = 42
+
+    def __post_init__(self) -> None:
+        if self.sample_interval_s <= 0:
+            raise ValueError("sample_interval_s must be positive")
+        if not self.lags_s or min(self.lags_s) <= 0:
+            raise ValueError("lags_s must be positive")
+        if self.trend_window_s <= 0 or self.horizon_s <= 0:
+            raise ValueError("trend_window_s and horizon_s must be positive")
+        if self.horizon_s not in self.horizons_s:
+            raise ValueError("horizon_s must be one of horizons_s")
+        if self.min_history_s < max(max(self.lags_s), self.trend_window_s):
+            raise ValueError("min_history_s must cover the longest lag and the trend window")
+        if self.history_s < self.min_history_s:
+            raise ValueError("history_s must be at least min_history_s")
+
+    def model_path(self, horizon_s: Optional[int] = None) -> Path:
+        """Where the trained model for a horizon is stored."""
+        return MODEL_DIR / f"traffic_model_h{horizon_s or self.horizon_s}.joblib"
