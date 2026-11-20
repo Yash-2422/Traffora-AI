@@ -285,7 +285,7 @@ class CongestionDetector:
 
         raw = self.classify(score)
         level, since = self._stabilise(("junction", junction.junction_id), raw, now)
-        requires, reason = self._attention_reason(level, since, now)
+        requires, reason = self._attention_reason(level, raw, since, now)
 
         return JunctionCongestion(
             junction_id=junction.junction_id,
@@ -305,8 +305,15 @@ class CongestionDetector:
         )
 
     def _attention_reason(
-        self, level: CongestionLevel, since: float, now: float
+        self, level: CongestionLevel, raw: CongestionLevel, since: float, now: float
     ) -> Tuple[bool, Optional[str]]:
+        """Does this junction need attention now?
+
+        Only if it is still congested right now (``raw`` is not LOW): a junction whose
+        stable level is only lingering through the clear delay is already recovering.
+        """
+        if raw == CongestionLevel.LOW:
+            return False, None
         if level == CongestionLevel.HIGH:
             return True, f"HIGH congestion for {now - since:.0f} s"
         if level == CongestionLevel.MEDIUM and now - since >= self.config.attention_medium_after_s:
