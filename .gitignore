@@ -1,13 +1,15 @@
-@"
 
 # Python
 __pycache__/
 *.py[cod]
 *.pyo
 *.egg-info/
+
+# Virtual environments
 .venv/
 venv/
 env/
+gc-venv/
 
 # Environment variables
 .env
@@ -23,12 +25,12 @@ env/
 *.log
 logs/
 
-# Testing
+# Testing and coverage
 .pytest_cache/
 .coverage
 htmlcov/
 
-# SUMO
+# SUMO temporary and generated files
 *.sumocfg~
 *.net.xml~
 *.rou.xml~
@@ -37,6 +39,9 @@ htmlcov/
 *.netstate.xml
 *.xml.tmp
 
+# GreenCorridor simulation results
+simulation/green_corridor/results/
+
 # OS
 .DS_Store
 Thumbs.db
@@ -44,4 +49,3 @@ Thumbs.db
 # Temporary files
 tmp/
 temp/
-"@ | Add-Content .gitignore
