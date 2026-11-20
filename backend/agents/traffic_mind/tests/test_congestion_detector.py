@@ -451,6 +451,25 @@ def test_medium_junction_needs_attention_only_after_a_while():
     assert "MEDIUM" in report.attention_junctions[0].reason and "60" in report.attention_junctions[0].reason
 
 
+def test_junction_that_is_already_recovering_is_not_flagged():
+    # stable level stays MEDIUM through the 30 s clear delay, but the current score is LOW
+    detector = CongestionDetector(CongestionConfig(smoothing_window_s=0, attention_medium_after_s=10))
+    run(detector, medium_road, [0, 5, 10])
+    assert [a.junction_id for a in detector.latest.attention_junctions] == ["J1"]
+    report = run(detector, calm, [15, 20])
+    j = junction_of(report)
+    assert j.level == MEDIUM and j.raw_level == LOW
+    assert report.attention_junctions == [] and not j.requires_attention
+
+
+def test_high_junction_whose_score_dropped_to_low_is_not_flagged():
+    detector = CongestionDetector(UNSMOOTHED)
+    run(detector, jammed, [0])
+    report = run(detector, calm, [5])
+    assert junction_of(report).level == HIGH and junction_of(report).raw_level == LOW
+    assert report.attention_junctions == []
+
+
 def test_attention_list_is_ranked_by_level_then_score():
     detector = CongestionDetector(NO_DELAY)
     worse = jammed().model_copy(update={"edge_id": "E1", "junction_id": "J1", "occupancy_pct": 20.0})
