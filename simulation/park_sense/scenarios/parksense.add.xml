@@ -1,0 +1,7 @@
+<additional>
+    <parkingArea id="PA_A" lane="e_N6_N7_0" startPos="80"  endPos="140" roadsideCapacity="6"  friendlyPos="true"/>
+    <parkingArea id="PA_B" lane="e_N3_N4_0" startPos="100" endPos="200" roadsideCapacity="12" friendlyPos="true"/>
+    <parkingArea id="PA_C" lane="e_N5_N6_0" startPos="150" endPos="250" roadsideCapacity="8"  friendlyPos="true"/>
+    <parkingArea id="PA_D" lane="e_N8_N9_0" startPos="100" endPos="220" roadsideCapacity="15" friendlyPos="true"/>
+    <parkingArea id="PA_E" lane="e_N4_N7_0" startPos="60"  endPos="140" roadsideCapacity="10" friendlyPos="true"/>
+</additional>

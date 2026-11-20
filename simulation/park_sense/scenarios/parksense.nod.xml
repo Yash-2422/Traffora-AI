@@ -1,0 +1,11 @@
+<nodes>
+    <node id="N2" x="0" y="400"/>
+    <node id="N3" x="400" y="400"/>
+    <node id="N4" x="800" y="400"/>
+    <node id="N5" x="0" y="200"/>
+    <node id="N6" x="400" y="200"/>
+    <node id="N7" x="800" y="200"/>
+    <node id="N8" x="0" y="0"/>
+    <node id="N9" x="400" y="0"/>
+    <node id="N10" x="800" y="0"/>
+</nodes>
