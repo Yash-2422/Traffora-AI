@@ -38,6 +38,7 @@ import threading
 from typing import Any, Dict, List, Optional
 
 from fastapi import Depends, FastAPI, Query, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from .config import OrchestratorConfig, configure_logging
@@ -96,6 +97,27 @@ def _require_running(orchestrator: TrafforaOrchestrator) -> None:
         )
 
 
+_DEFAULT_CORS_ORIGINS = (
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+)
+
+
+def _cors_origins() -> List[str]:
+    """Resolve the allowed browser origins for the dashboard.
+
+    ``TRAFFORA_CORS_ORIGINS`` is a comma-separated list. It defaults to the
+    Vite dev server only, so a production deployment must opt in explicitly
+    rather than inheriting a wildcard. ``*`` is rejected on purpose: the API
+    is unauthenticated, and a wildcard would let any page on the internet
+    drive the simulation.
+    """
+    raw = os.getenv("TRAFFORA_CORS_ORIGINS", "")
+    candidates = [item.strip() for item in raw.split(",") if item.strip()]
+    origins = candidates or list(_DEFAULT_CORS_ORIGINS)
+    return [origin for origin in origins if origin != "*"]
+
+
 def create_app(
     orchestrator: Optional[TrafforaOrchestrator] = None,
     config: Optional[OrchestratorConfig] = None,
@@ -122,6 +144,17 @@ def create_app(
     )
     app.state.orchestrator = orchestrator
     app.state.config = config
+
+    # Browser access is opt-in per origin. No wildcard, no credentials: the
+    # dashboard is a static SPA that talks to this API with plain XHR.
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=_cors_origins(),
+        allow_credentials=False,
+        allow_methods=["GET", "POST", "OPTIONS"],
+        allow_headers=["Content-Type", "Accept"],
+        max_age=600,
+    )
 
     @app.exception_handler(OrchestratorError)
     async def _orchestrator_error_handler(_: Request, exc: OrchestratorError) -> JSONResponse:

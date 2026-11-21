@@ -1,0 +1,21 @@
+# Frontend build output and dependencies
+node_modules/
+dist/
+dist-ssr/
+
+# Vite cache
+.vite/
+node_modules/.tmp/
+
+# Local env overrides (VITE_API_BASE_URL, VITE_API_PROXY_TARGET)
+.env
+.env.local
+.env.*.local
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+*.local
+
+# TypeScript incremental build info
+*.tsbuildinfo
