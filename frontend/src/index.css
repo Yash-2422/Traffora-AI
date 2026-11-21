@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 text-slate-200 antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-white;
+  }
+
+  /* Slim scrollbars so dense panels stay readable. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #2a3855 transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-ink-600;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent/60 ring-offset-2 ring-offset-ink-950;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-xl border border-white/5 bg-ink-900/80 shadow-panel backdrop-blur;
+  }
+
+  .panel-header {
+    @apply flex items-center justify-between gap-3 border-b border-white/5 px-4 py-3;
+  }
+
+  .panel-title {
+    @apply text-sm font-semibold tracking-tight text-slate-100;
+  }
+
+  .panel-subtitle {
+    @apply text-xs text-slate-400;
+  }
+
+  .stat-value {
+    @apply font-mono text-2xl font-semibold tabular-nums text-white;
+  }
+
+  .stat-label {
+    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] font-medium;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold
+      transition-colors disabled:cursor-not-allowed disabled:opacity-40;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-ink-950 hover:bg-accent-soft;
+  }
+
+  .btn-danger {
+    @apply btn border border-rose-500/40 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20;
+  }
+
+  .btn-ghost {
+    @apply btn border border-white/10 bg-white/[0.03] text-slate-200 hover:bg-white/[0.07];
+  }
+
+  .table-head {
+    @apply sticky top-0 z-10 bg-ink-900/95 text-left text-[11px] font-semibold uppercase
+      tracking-[0.12em] text-slate-400 backdrop-blur;
+  }
+
+  .table-cell {
+    @apply border-t border-white/5 px-3 py-2.5 text-sm text-slate-300;
+  }
+}
+
+/* Leaflet dark integration */
+.leaflet-container {
+  background: #070b14;
+  font-family: inherit;
+}
+.leaflet-control-attribution {
+  background: rgba(7, 11, 20, 0.8) !important;
+  color: #64748b !important;
+  font-size: 10px !important;
+}
+.leaflet-control-attribution a {
+  color: #94a3b8 !important;
+}
+.leaflet-bar a {
+  background: #0f172a !important;
+  color: #cbd5e1 !important;
+  border-color: #1c2740 !important;
+}
+.leaflet-bar a:hover {
+  background: #1c2740 !important;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -24px rgba(0, 0, 0, 0.9);
+}
+.leaflet-popup-content {
+  margin: 10px 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
