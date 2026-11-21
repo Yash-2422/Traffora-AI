@@ -1,0 +1,30 @@
+# Render Blueprint for the Traffora-AI Central Orchestrator.
+#
+# Deploy with: Render Dashboard -> New -> Blueprint -> pick this repository and
+# the `integration` branch. Render reads this file and builds the Dockerfile.
+#
+# Notes
+# -----
+# * `runtime: docker` is required: the orchestrator keeps a long-lived SUMO
+#   process and a TraCI socket open, which a serverless function cannot do.
+# * Render injects $PORT; the API entry point binds 0.0.0.0 and reads it.
+# * The free plan sleeps after ~15 minutes idle and has 512 MB RAM. SUMO plus
+#   the three agents (scikit-learn models included) is comfortable but not
+#   roomy, so a paid instance is safer for a live demo. Simulation state lives
+#   in process memory, so a sleeping instance loses it on wake.
+
+services:
+  - type: web
+    name: traffora-orchestrator
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: integration
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHONUNBUFFERED
+        value: "1"

@@ -1,0 +1,71 @@
+<routes>
+    <!-- Vehicles that actually park in the ParkSense zones of the shared
+         simulation. Each route reaches the parking area's lane and stops
+         there for the given duration, so occupancy is produced by SUMO,
+         not by fabricated counts. Routes were derived from the real
+         network graph (A0 -> parking lane), not guessed. -->
+    <vehicle id="pk_a1" type="car" depart="20">
+        <route edges="A0A1 A1A2 A2A3 A3B3 B3C3 C3D3 D3E3 E3E4 E4D4"/>
+        <stop parkingArea="PA_A" duration="900"/>
+    </vehicle>
+    <vehicle id="pk_a2" type="car" depart="120">
+        <route edges="A0A1 A1A2 A2A3 A3B3 B3C3 C3D3 D3E3 E3E4 E4D4"/>
+        <stop parkingArea="PA_A" duration="1200"/>
+    </vehicle>
+    <vehicle id="pk_a3" type="car" depart="260">
+        <route edges="A0A1 A1A2 A2A3 A3B3 B3C3 C3D3 D3E3 E3E4 E4D4"/>
+        <stop parkingArea="PA_A" duration="1000"/>
+    </vehicle>
+
+    <vehicle id="pk_b1" type="car" depart="40">
+        <route edges="A0A1 A1A2 A2A3 A3A4 A4B4 B4C4 C4D4 D4E4 E4E3"/>
+        <stop parkingArea="PA_B" duration="1000"/>
+    </vehicle>
+    <vehicle id="pk_b2" type="car" depart="150">
+        <route edges="A0A1 A1A2 A2A3 A3A4 A4B4 B4C4 C4D4 D4E4 E4E3"/>
+        <stop parkingArea="PA_B" duration="1400"/>
+    </vehicle>
+    <vehicle id="pk_b3" type="car" depart="300">
+        <route edges="A0A1 A1A2 A2A3 A3A4 A4B4 B4C4 C4D4 D4E4 E4E3"/>
+        <stop parkingArea="PA_B" duration="900"/>
+    </vehicle>
+
+    <vehicle id="pk_c1" type="car" depart="60">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3 D3D4 D4E4"/>
+        <stop parkingArea="PA_C" duration="1100"/>
+    </vehicle>
+    <vehicle id="pk_c2" type="car" depart="180">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3 D3D4 D4E4"/>
+        <stop parkingArea="PA_C" duration="950"/>
+    </vehicle>
+    <vehicle id="pk_c3" type="car" depart="340">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3 D3D4 D4E4"/>
+        <stop parkingArea="PA_C" duration="1300"/>
+    </vehicle>
+
+    <vehicle id="pk_d1" type="car" depart="80">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3 D3D4 D4D3"/>
+        <stop parkingArea="PA_D" duration="1200"/>
+    </vehicle>
+    <vehicle id="pk_d2" type="car" depart="210">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3 D3D4 D4D3"/>
+        <stop parkingArea="PA_D" duration="1000"/>
+    </vehicle>
+    <vehicle id="pk_d3" type="car" depart="380">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1D2 D2D3 D3D4 D4D3"/>
+        <stop parkingArea="PA_D" duration="1500"/>
+    </vehicle>
+
+    <vehicle id="pk_e1" type="car" depart="100">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1E1 E1E2 E2E3 E3D3"/>
+        <stop parkingArea="PA_E" duration="1000"/>
+    </vehicle>
+    <vehicle id="pk_e2" type="car" depart="240">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1E1 E1E2 E2E3 E3D3"/>
+        <stop parkingArea="PA_E" duration="1250"/>
+    </vehicle>
+    <vehicle id="pk_e3" type="car" depart="420">
+        <route edges="A0A1 A1B1 B1C1 C1D1 D1E1 E1E2 E2E3 E3D3"/>
+        <stop parkingArea="PA_E" duration="900"/>
+    </vehicle>
+</routes>

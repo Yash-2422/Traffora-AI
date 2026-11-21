@@ -1,0 +1,10 @@
+<additional>
+    <!-- Parking areas used by ParkSense inside the shared Traffora-AI simulation.
+         Lanes and coordinates were taken from the GreenCorridor 5x5 network
+         (simulation/green_corridor/sample_network/grid.net.xml). -->
+    <parkingArea id="PA_A" lane="E4D4_0" startPos="60"  endPos="160" roadsideCapacity="6"  friendlyPos="true"/>
+    <parkingArea id="PA_B" lane="E4E3_0" startPos="60"  endPos="180" roadsideCapacity="12" friendlyPos="true"/>
+    <parkingArea id="PA_C" lane="D4E4_0" startPos="60"  endPos="160" roadsideCapacity="8"  friendlyPos="true"/>
+    <parkingArea id="PA_D" lane="D4D3_0" startPos="60"  endPos="180" roadsideCapacity="15" friendlyPos="true"/>
+    <parkingArea id="PA_E" lane="E3D3_0" startPos="60"  endPos="160" roadsideCapacity="10" friendlyPos="true"/>
+</additional>

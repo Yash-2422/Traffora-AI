@@ -1,0 +1,97 @@
+{
+  "config": {
+    "sumocfg": "/workspace/traffora/simulation/orchestrator/unified.sumocfg",
+    "seed": 42,
+    "end_time": 900,
+    "demand_scale": 2.0
+  },
+  "timeline": [
+    {
+      "t": 0.0,
+      "event": "parking_recommendation",
+      "explanation": "Parking optimisation (P3, advisory): recommend PA_D (15 free spaces, 0.0% occupied). This decision cannot change a traffic signal.",
+      "recommended_zone": "PA_D",
+      "available": 15
+    },
+    {
+      "t": 145.0,
+      "event": "emergency_priority",
+      "explanation": "Emergency priority (P1): GreenCorridor requested preemption at A2. Active vehicles: amb_1 -> A2 (ETA 17.9s); amb_1.1 -> A2 (ETA 19.6s) TrafficMind actions for these lights are suppressed this step.",
+      "applied": true,
+      "tls": [
+        "A2"
+      ],
+      "safety_status": "VALID",
+      "safety_reasons": [
+        "all safety rules passed"
+      ]
+    },
+    {
+      "t": 295.0,
+      "event": "congestion_detected",
+      "explanation": "Traffic optimisation (P2): 1 green extension(s) at D2. Only lights with HIGH congestion and no active emergency request were adjusted.",
+      "applied": true,
+      "tls": [
+        "D2"
+      ]
+    }
+  ],
+  "metrics": {
+    "simulation_time_s": 900.0,
+    "steps": 899,
+    "vehicles_departed": 616,
+    "vehicles_arrived": 597,
+    "average_waiting_time_s": 3.329,
+    "average_queue_length_m": 0.538,
+    "average_travel_time_s": 149.235,
+    "emergency_vehicle_travel_time_s": 206.5,
+    "emergency_priority_response_time_s": 22.5,
+    "parking_occupancy_pct": 27.45098039215686,
+    "parking_search_time_s": null,
+    "accepted_decisions": 191,
+    "rejected_decisions": 0,
+    "orchestrator_processing_latency_ms": 42.039,
+    "agent_availability_pct": 100.0,
+    "notes": []
+  },
+  "agents": [
+    {
+      "agent": "green_corridor",
+      "health": "READY",
+      "available": true,
+      "message": "monitoring emergency vehicles",
+      "last_update_s": 896.0,
+      "latency_ms": 0.512,
+      "details": {}
+    },
+    {
+      "agent": "park_sense",
+      "health": "READY",
+      "available": true,
+      "message": "5 parking zones loaded",
+      "last_update_s": 896.0,
+      "latency_ms": 109.014,
+      "details": {}
+    },
+    {
+      "agent": "traffic_mind",
+      "health": "READY",
+      "available": true,
+      "message": "attached to shared simulation",
+      "last_update_s": 896.0,
+      "latency_ms": 19.431,
+      "details": {}
+    }
+  ],
+  "safety": {
+    "applied_signal_decisions": 3,
+    "rejected_signal_decisions": 0,
+    "applied_without_valid": 0
+  },
+  "events": {
+    "pending": 0,
+    "processed": 122,
+    "rejected": 0,
+    "duplicates": 24
+  }
+}

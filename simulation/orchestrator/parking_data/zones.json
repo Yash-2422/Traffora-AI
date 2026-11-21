@@ -1,0 +1,13 @@
+{
+  "city": "Traffora-AI Unified Demo City",
+  "destinations": {
+    "hospital": { "name": "City Hospital", "x": 1200, "y": 1200 }
+  },
+  "zones": [
+    { "zone_id": "PA_A", "name": "Hospital Annex Parking",  "capacity": 6,  "x": 1100, "y": 1200, "lane": "E4D4_0" },
+    { "zone_id": "PA_B", "name": "City Mall Parking",       "capacity": 12, "x": 1200, "y": 1050, "lane": "E4E3_0" },
+    { "zone_id": "PA_C", "name": "Market Parking",          "capacity": 8,  "x": 1050, "y": 1200, "lane": "D4E4_0" },
+    { "zone_id": "PA_D", "name": "Railway Station Parking", "capacity": 15, "x": 900,  "y": 1050, "lane": "D4D3_0" },
+    { "zone_id": "PA_E", "name": "Stadium Parking",         "capacity": 10, "x": 1100, "y": 900,  "lane": "E3D3_0" }
+  ]
+}

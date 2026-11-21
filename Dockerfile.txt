@@ -1,0 +1,36 @@
+FROM python:3.11-slim
+
+# SUMO needs a handful of shared libraries at runtime. The eclipse-sumo wheel
+# bundles most of its own libraries, but libxml2 and libproj are still resolved
+# from the system, so install them explicitly.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        libxml2 \
+        libproj25 \
+        libgomp1 \
+        libstdc++6 \
+        ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+# Install dependencies first so Docker can cache this layer across code edits.
+COPY requirements-orchestrator.txt requirements-orchestrator-linux.txt ./
+RUN pip install --upgrade pip && pip install -r requirements-orchestrator-linux.txt
+
+# Application code.
+COPY . .
+
+# Fail the build early if the SUMO binary is not usable inside the image.
+RUN python -c "import sumo, pathlib, sys; p = pathlib.Path(sumo.SUMO_HOME) / 'bin' / 'sumo'; print('SUMO binary:', p); sys.exit(0 if p.exists() else 1)"
+
+EXPOSE 8000
+
+# Render/Railway/Fly inject $PORT; the entry point already honours it and binds
+# 0.0.0.0 when it is present. The fallback keeps plain `docker run` working.
+ENV PORT=8000
+CMD ["python", "-m", "backend.orchestrator.api"]

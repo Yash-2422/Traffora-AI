@@ -1,0 +1,15 @@
+# Linux / container variant of the orchestrator requirements.
+#
+# On Windows the SUMO binaries come from the MSI installer and only the Python
+# bindings (traci/sumolib) are installed via pip. On Linux there is no MSI, so
+# we pull the official `eclipse-sumo` wheel, which ships the `sumo` and
+# `netconvert` executables inside the package and exposes their location as
+# `sumo.SUMO_HOME`. The repository already falls back to that attribute when
+# SUMO_HOME is unset, so no environment variable is required.
+#
+# The wheel is ~150 MB, which is why it is kept out of the base requirements
+# file that Windows users install.
+
+-r requirements-orchestrator.txt
+
+eclipse-sumo==1.28.0

@@ -1,0 +1,6 @@
+=== fixed-time (agents observe, no signal writes) ===
+exit=0
+=== traffic-mind only ===
+exit=0
+=== full Traffora-AI ===
+exit=0

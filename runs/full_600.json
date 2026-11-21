@@ -1,0 +1,193 @@
+{
+  "config": {
+    "sumocfg": "/workspace/traffora/simulation/orchestrator/unified.sumocfg",
+    "seed": 42,
+    "end_time": 600,
+    "signal_control": true,
+    "traffic_mind": true,
+    "green_corridor": true,
+    "park_sense": true
+  },
+  "metrics": {
+    "simulation_time_s": 600.0,
+    "steps": 599,
+    "vehicles_departed": 305,
+    "vehicles_arrived": 223,
+    "average_waiting_time_s": 1.914,
+    "average_queue_length_m": 0.172,
+    "average_travel_time_s": 109.471,
+    "emergency_vehicle_travel_time_s": 213.0,
+    "emergency_priority_response_time_s": 45.0,
+    "parking_occupancy_pct": 7.8431372549019605,
+    "parking_search_time_s": null,
+    "accepted_decisions": 125,
+    "rejected_decisions": 1,
+    "orchestrator_processing_latency_ms": 36.29,
+    "agent_availability_pct": 100.0,
+    "notes": []
+  },
+  "agents": [
+    {
+      "agent": "green_corridor",
+      "health": "READY",
+      "available": true,
+      "message": "monitoring emergency vehicles",
+      "last_update_s": 596.0,
+      "latency_ms": 0.748,
+      "details": {}
+    },
+    {
+      "agent": "park_sense",
+      "health": "READY",
+      "available": true,
+      "message": "5 parking zones loaded",
+      "last_update_s": 596.0,
+      "latency_ms": 110.656,
+      "details": {}
+    },
+    {
+      "agent": "traffic_mind",
+      "health": "READY",
+      "available": true,
+      "message": "attached to shared simulation",
+      "last_update_s": 596.0,
+      "latency_ms": 23.042,
+      "details": {}
+    }
+  ],
+  "decisions": {
+    "total": 500,
+    "applied_signal_decisions": 5,
+    "rejected_signal_decisions": 1,
+    "by_type": {
+      "NO_ACTION": 396,
+      "PARKING_RECOMMENDATION": 98,
+      "EMERGENCY_PRIORITY": 6
+    },
+    "rejection_reasons": [
+      "duration 3.6s is below the minimum green (4.0s, emergency=True)"
+    ]
+  },
+  "events": {
+    "pending": 0,
+    "processed": 7,
+    "rejected": 0,
+    "duplicates": 3
+  },
+  "latest_decision": {
+    "decision_id": "dec-1c222bebba7a",
+    "timestamp_s": 600.0,
+    "decision_type": "NO_ACTION",
+    "priority": 3,
+    "source_agent": null,
+    "signal_actions": [],
+    "parking_recommendations": [],
+    "explanation": "No agent requested an action at this step.",
+    "validation": null,
+    "applied": true,
+    "rejected_reason": null,
+    "metadata": {
+      "reason": "no_recommendations"
+    }
+  },
+  "parking": {
+    "parking": {
+      "timestamp_s": 596.0,
+      "zones": [
+        {
+          "zone_id": "PA_A",
+          "name": "Hospital Annex Parking",
+          "capacity": 6,
+          "occupied": 2,
+          "available": 4,
+          "occupancy_pct": 33.3,
+          "status": "OPEN"
+        },
+        {
+          "zone_id": "PA_B",
+          "name": "City Mall Parking",
+          "capacity": 12,
+          "occupied": 1,
+          "available": 11,
+          "occupancy_pct": 8.3,
+          "status": "OPEN"
+        },
+        {
+          "zone_id": "PA_C",
+          "name": "Market Parking",
+          "capacity": 8,
+          "occupied": 1,
+          "available": 7,
+          "occupancy_pct": 12.5,
+          "status": "OPEN"
+        },
+        {
+          "zone_id": "PA_D",
+          "name": "Railway Station Parking",
+          "capacity": 15,
+          "occupied": 0,
+          "available": 15,
+          "occupancy_pct": 0.0,
+          "status": "OPEN"
+        },
+        {
+          "zone_id": "PA_E",
+          "name": "Stadium Parking",
+          "capacity": 10,
+          "occupied": 0,
+          "available": 10,
+          "occupancy_pct": 0.0,
+          "status": "OPEN"
+        }
+      ],
+      "total_capacity": 51,
+      "total_occupied": 4,
+      "total_available": 47,
+      "overall_occupancy_pct": 7.8
+    },
+    "occupancy_pct": 7.8431372549019605,
+    "search_time_s": null
+  },
+  "traffic": {
+    "simulation_time_s": 600.0,
+    "traffic": {
+      "timestamp_s": 596.0,
+      "vehicle_count": 79,
+      "average_speed_mps": 8.023,
+      "average_waiting_time_s": 4.82,
+      "average_queue_length_m": 2.039,
+      "congestion_level": "LOW",
+      "congested_junctions": [],
+      "junction_levels": {
+        "A1": "LOW",
+        "A2": "LOW",
+        "A3": "LOW",
+        "B0": "LOW",
+        "B1": "LOW",
+        "B2": "LOW",
+        "B3": "LOW",
+        "B4": "LOW",
+        "C0": "LOW",
+        "C1": "LOW",
+        "C2": "LOW",
+        "C3": "LOW",
+        "C4": "LOW",
+        "D0": "LOW",
+        "D1": "LOW",
+        "D2": "LOW",
+        "D3": "LOW",
+        "D4": "LOW",
+        "E1": "LOW",
+        "E2": "LOW",
+        "E3": "LOW"
+      },
+      "source": "traffic_mind"
+    },
+    "average_waiting_time_s": 1.914,
+    "average_queue_length": 0.172,
+    "average_travel_time_s": 109.471,
+    "vehicles_departed": 305,
+    "vehicles_arrived": 223,
+    "congestion_events": 7
+  }
+}

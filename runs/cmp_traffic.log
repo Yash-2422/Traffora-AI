@@ -1,0 +1,162 @@
+2026-11-20 20:17:18,170 INFO    backend.orchestrator.orchestrator: Initialising Traffora-AI orchestrator (scenario: /workspace/traffora/simulation/orchestrator/unified.sumocfg)
+2026-11-20 20:17:18,170 INFO    backend.agents.traffic_mind.simulation_interface: Starting SUMO: /usr/local/bin/sumo -c /workspace/traffora/simulation/orchestrator/unified.sumocfg --seed 42 --scale 2.0 --step-length 1.0 --end 900 --no-step-log --no-warnings --xml-validation never
+2026-11-20 20:17:19,190 INFO    backend.agents.traffic_mind.simulation_interface: Connected to SUMO (scenario: unified.sumocfg)
+2026-11-20 20:17:19,194 INFO    backend.orchestrator.simulation_coordinator: Activated signal program 'orchestrator' on 21 traffic lights.
+2026-11-20 20:17:19,195 INFO    backend.orchestrator.simulation_coordinator: SUMO session 'orchestrator' ready: 21 traffic lights, 5 parking areas
+2026-11-20 20:17:19,195 INFO    backend.orchestrator.orchestrator: Safety validator knows 21 traffic lights.
+2026-11-20 20:17:19,212 INFO    backend.agents.traffic_mind.agent: TrafficMind attached to simulation orchestrator.
+2026-11-20 20:17:19,212 INFO    backend.orchestrator.orchestrator: Agent traffic_mind: READY (attached to shared simulation)
+2026-11-20 20:17:19,213 INFO    backend.orchestrator.orchestrator: Orchestrator started.
+2026-11-20 20:17:20,799 INFO    run_orchestrator: t=60s vehicles=66 waiting=0.5s queue=0.04 parking=0.0% decisions=60
+2026-11-20 20:17:21,601 INFO    run_orchestrator: t=120s vehicles=114 waiting=1.3s queue=0.13 parking=0.0% decisions=120
+2026-11-20 20:17:21,632 INFO    backend.orchestrator.orchestrator: Congestion predicted at B2 in 60s
+2026-11-20 20:17:22,122 INFO    backend.orchestrator.orchestrator: Congestion predicted at D2 in 60s
+2026-11-20 20:17:22,122 INFO    backend.orchestrator.orchestrator: Congestion predicted at C1 in 60s
+2026-11-20 20:17:22,635 INFO    run_orchestrator: t=180s vehicles=206 waiting=1.7s queue=0.21 parking=0.0% decisions=180
+2026-11-20 20:17:22,669 INFO    backend.orchestrator.orchestrator: Congestion predicted at D1 in 60s
+2026-11-20 20:17:22,669 INFO    backend.orchestrator.orchestrator: Congestion predicted at B1 in 60s
+2026-11-20 20:17:23,261 INFO    backend.orchestrator.orchestrator: Congestion predicted at D2 in 60s
+2026-11-20 20:17:23,261 INFO    backend.orchestrator.orchestrator: Congestion predicted at C2 in 60s
+2026-11-20 20:17:23,261 INFO    backend.orchestrator.orchestrator: Congestion predicted at C3 in 60s
+2026-11-20 20:17:23,542 INFO    backend.orchestrator.orchestrator: Congestion at D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:23,542 INFO    backend.orchestrator.orchestrator: Congestion at C1D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:23,806 INFO    run_orchestrator: t=240s vehicles=251 waiting=2.3s queue=0.33 parking=0.0% decisions=240
+2026-11-20 20:17:23,845 INFO    backend.orchestrator.orchestrator: Congestion predicted at B2 in 60s
+2026-11-20 20:17:24,052 INFO    backend.orchestrator.orchestrator: Congestion at D2D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:24,161 INFO    backend.orchestrator.orchestrator: Congestion at D2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:24,161 INFO    backend.orchestrator.orchestrator: Congestion at C3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:24,161 INFO    backend.orchestrator.orchestrator: Congestion at D1D2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:24,161 INFO    backend.orchestrator.orchestrator: Congestion at D3C3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:24,502 INFO    backend.orchestrator.orchestrator: Congestion at D3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:24,502 INFO    backend.orchestrator.orchestrator: Congestion at E1D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:24,502 INFO    backend.orchestrator.orchestrator: Congestion at E3D3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:25,088 INFO    run_orchestrator: t=300s vehicles=310 waiting=2.7s queue=0.42 parking=0.0% decisions=300
+2026-11-20 20:17:25,221 INFO    backend.orchestrator.orchestrator: Congestion at B2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:25,221 INFO    backend.orchestrator.orchestrator: Congestion at B1B2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:26,319 INFO    run_orchestrator: t=360s vehicles=376 waiting=2.9s queue=0.46 parking=0.0% decisions=360
+2026-11-20 20:17:26,354 INFO    backend.orchestrator.orchestrator: Congestion at D0 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:26,354 INFO    backend.orchestrator.orchestrator: Congestion at C0D0 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:26,354 INFO    backend.orchestrator.orchestrator: Congestion predicted at D3 in 60s
+2026-11-20 20:17:26,354 INFO    backend.orchestrator.orchestrator: Congestion predicted at B3 in 60s
+2026-11-20 20:17:26,354 INFO    backend.orchestrator.orchestrator: Congestion predicted at E2 in 60s
+2026-11-20 20:17:26,354 INFO    backend.orchestrator.orchestrator: Congestion predicted at C0 in 60s
+2026-11-20 20:17:26,355 INFO    backend.orchestrator.orchestrator: Congestion predicted at C1 in 60s
+2026-11-20 20:17:26,994 INFO    backend.orchestrator.orchestrator: Congestion at D3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:26,994 INFO    backend.orchestrator.orchestrator: Congestion at D2D3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:26,994 INFO    backend.orchestrator.orchestrator: Congestion predicted at B1 in 60s
+2026-11-20 20:17:26,994 INFO    backend.orchestrator.orchestrator: Congestion predicted at C3 in 60s
+2026-11-20 20:17:27,325 INFO    backend.orchestrator.orchestrator: Congestion at B3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:27,325 INFO    backend.orchestrator.orchestrator: Congestion at C0 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:27,325 INFO    backend.orchestrator.orchestrator: Congestion at C3B3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:27,325 INFO    backend.orchestrator.orchestrator: Congestion at D0C0 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:27,632 INFO    run_orchestrator: t=420s vehicles=439 waiting=3.0s queue=0.51 parking=0.0% decisions=420
+2026-11-20 20:17:27,669 INFO    backend.orchestrator.orchestrator: Congestion predicted at C2 in 60s
+2026-11-20 20:17:27,669 INFO    backend.orchestrator.orchestrator: Congestion predicted at B2 in 60s
+2026-11-20 20:17:27,895 INFO    backend.orchestrator.orchestrator: Congestion at B1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:27,895 INFO    backend.orchestrator.orchestrator: Congestion at C1B1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:28,006 INFO    backend.orchestrator.orchestrator: Congestion at C3D3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:28,355 INFO    backend.orchestrator.orchestrator: Congestion predicted at C1 in 60s
+2026-11-20 20:17:28,355 INFO    backend.orchestrator.orchestrator: Congestion predicted at D2 in 60s
+2026-11-20 20:17:28,355 INFO    backend.orchestrator.orchestrator: Congestion predicted at C3 in 60s
+2026-11-20 20:17:28,691 INFO    backend.orchestrator.orchestrator: Congestion at A1B1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:28,803 INFO    backend.orchestrator.orchestrator: Congestion at B0C0 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:28,998 INFO    run_orchestrator: t=480s vehicles=488 waiting=3.2s queue=0.56 parking=0.0% decisions=480
+2026-11-20 20:17:29,038 INFO    backend.orchestrator.orchestrator: Congestion predicted at A1 in 60s
+2026-11-20 20:17:29,038 INFO    backend.orchestrator.orchestrator: Congestion predicted at C2 in 60s
+2026-11-20 20:17:29,038 INFO    backend.orchestrator.orchestrator: Congestion predicted at E3 in 60s
+2026-11-20 20:17:29,792 INFO    backend.orchestrator.orchestrator: Congestion at C1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:29,793 INFO    backend.orchestrator.orchestrator: Congestion at D2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:29,793 INFO    backend.orchestrator.orchestrator: Congestion at C2C1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:29,793 INFO    backend.orchestrator.orchestrator: Congestion at C2D2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:29,793 INFO    backend.orchestrator.orchestrator: Congestion predicted at C0 in 60s
+2026-11-20 20:17:29,793 INFO    backend.orchestrator.orchestrator: Congestion predicted at C3 in 60s
+2026-11-20 20:17:30,131 INFO    backend.orchestrator.orchestrator: Congestion at C2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:30,131 INFO    backend.orchestrator.orchestrator: Congestion at D2C2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:30,248 INFO    backend.orchestrator.orchestrator: Congestion at C0 (level=HIGH, queue=0m)
+2026-11-20 20:17:30,248 INFO    backend.orchestrator.orchestrator: Congestion at B0C0 (level=HIGH, queue=0m)
+2026-11-20 20:17:30,249 INFO    backend.orchestrator.simulation_coordinator: Applied SET_PHASE_DURATION on C0: phase 0 held for 23.0s (source=traffic_mind)
+2026-11-20 20:17:30,361 INFO    backend.orchestrator.orchestrator: Congestion at C3C2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:30,442 INFO    run_orchestrator: t=540s vehicles=547 waiting=3.3s queue=0.59 parking=0.0% decisions=500
+2026-11-20 20:17:30,480 INFO    backend.orchestrator.orchestrator: Congestion at C1C2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:30,480 INFO    backend.orchestrator.orchestrator: Congestion predicted at B2 in 60s
+2026-11-20 20:17:30,480 INFO    backend.orchestrator.orchestrator: Congestion predicted at A1 in 60s
+2026-11-20 20:17:30,480 INFO    backend.orchestrator.orchestrator: Congestion predicted at E3 in 60s
+2026-11-20 20:17:31,030 INFO    backend.orchestrator.orchestrator: Congestion at B2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:31,030 INFO    backend.orchestrator.orchestrator: Congestion at B3B2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:31,146 INFO    backend.orchestrator.orchestrator: Congestion predicted at D1 in 60s
+2026-11-20 20:17:31,147 INFO    backend.orchestrator.orchestrator: Congestion predicted at C3 in 60s
+2026-11-20 20:17:31,364 INFO    backend.orchestrator.orchestrator: Congestion at C3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:31,364 INFO    backend.orchestrator.orchestrator: Congestion at C2C3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:31,778 INFO    run_orchestrator: t=600s vehicles=604 waiting=3.4s queue=0.62 parking=0.0% decisions=500
+2026-11-20 20:17:32,042 INFO    backend.orchestrator.simulation_coordinator: Applied SET_PHASE_DURATION on C0: phase 0 held for 22.0s (source=traffic_mind)
+2026-11-20 20:17:32,486 INFO    backend.orchestrator.orchestrator: Congestion predicted at D1 in 60s
+2026-11-20 20:17:32,487 INFO    backend.orchestrator.orchestrator: Congestion predicted at C3 in 60s
+2026-11-20 20:17:32,902 INFO    backend.orchestrator.orchestrator: Congestion at D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:32,902 INFO    backend.orchestrator.orchestrator: Congestion at C0 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:32,902 INFO    backend.orchestrator.orchestrator: Congestion at D2D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:32,902 INFO    backend.orchestrator.orchestrator: Congestion at B0C0 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:33,005 INFO    backend.orchestrator.orchestrator: Congestion at D0D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:33,005 INFO    backend.orchestrator.orchestrator: Congestion at C1D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:33,074 INFO    run_orchestrator: t=660s vehicles=616 waiting=3.4s queue=0.63 parking=0.0% decisions=500
+2026-11-20 20:17:33,112 INFO    backend.orchestrator.orchestrator: Congestion at D1C1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:33,112 INFO    backend.orchestrator.orchestrator: Congestion predicted at D2 in 60s
+2026-11-20 20:17:33,596 INFO    backend.orchestrator.orchestrator: Congestion at B1B2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:33,696 INFO    backend.orchestrator.orchestrator: Congestion predicted at D1 in 60s
+2026-11-20 20:17:34,110 INFO    backend.orchestrator.orchestrator: Congestion at D2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:34,110 INFO    backend.orchestrator.orchestrator: Congestion at D1D2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:34,279 INFO    run_orchestrator: t=720s vehicles=616 waiting=3.6s queue=0.63 parking=0.0% decisions=500
+2026-11-20 20:17:34,316 INFO    backend.orchestrator.orchestrator: Congestion at E2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:34,316 INFO    backend.orchestrator.orchestrator: Congestion at E1E2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:34,316 INFO    backend.orchestrator.orchestrator: Congestion at D2E2 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:34,710 INFO    backend.orchestrator.orchestrator: Congestion at D1 (level=HIGH, queue=0m)
+2026-11-20 20:17:34,710 INFO    backend.orchestrator.orchestrator: Congestion at C1D1 (level=HIGH, queue=0m)
+2026-11-20 20:17:34,789 INFO    backend.orchestrator.orchestrator: Congestion predicted at D3 in 60s
+2026-11-20 20:17:34,868 INFO    backend.orchestrator.simulation_coordinator: Applied SET_PHASE_DURATION on D1: phase 3 held for 22.0s (source=traffic_mind)
+2026-11-20 20:17:35,188 INFO    run_orchestrator: t=780s vehicles=616 waiting=3.6s queue=0.61 parking=0.0% decisions=500
+2026-11-20 20:17:35,342 INFO    backend.orchestrator.orchestrator: Congestion at D3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:35,343 INFO    backend.orchestrator.orchestrator: Congestion at D2D3 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:35,514 INFO    backend.orchestrator.orchestrator: Congestion at D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:35,514 INFO    backend.orchestrator.orchestrator: Congestion at C1D1 (level=MEDIUM, queue=0m)
+2026-11-20 20:17:35,862 INFO    run_orchestrator: t=840s vehicles=616 waiting=3.5s queue=0.58 parking=0.0% decisions=500
+2026-11-20 20:17:36,411 INFO    run_orchestrator: t=900s vehicles=616 waiting=3.4s queue=0.54 parking=0.0% decisions=500
+2026-11-20 20:17:36,412 INFO    backend.orchestrator.orchestrator: Shutting down orchestrator after 900 steps.
+2026-11-20 20:17:36,426 INFO    backend.agents.traffic_mind.simulation_interface: Simulation closed.
+2026-11-20 20:17:36,426 INFO    backend.orchestrator.simulation_coordinator: SUMO session 'orchestrator' closed after 3 applied actions.
+Traffora-AI orchestrator
+  scenario : /workspace/traffora/simulation/orchestrator/unified.sumocfg
+  seed     : 42
+  end time : 900s
+  control  : enabled
+
+ Retrying in 1 seconds
+
+=== Measured results ===
+  simulated time            : 900s
+  vehicles departed/arrived : 616 / 595
+  average waiting time      : 3.42s
+  average queue length      : 0.54 veh/edge
+  average travel time       : 147.97s
+  emergency travel time     : 262.50s
+  emergency priority resp.  : n/as
+  parking occupancy         : n/a%
+  accepted / rejected       : 3 / 0
+  processing latency        : 19.09ms
+  agent availability        : 100.00%
+
+=== Agents ===
+  traffic_mind   READY      attached to shared simulation
+
+=== Decisions ===
+  total                     : 500
+  applied signal decisions  : 3
+  rejected signal decisions : 0
+    NO_ACTION               : 497
+    TRAFFIC_OPTIMIZATION    : 3
+
+=== Events ===
+  duplicates              : 21
+  pending                 : 0
+  processed               : 94
+  rejected                : 0
+
+Report written to runs/cmp_traffic.json

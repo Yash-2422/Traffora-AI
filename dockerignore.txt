@@ -1,0 +1,13 @@
+# Keep the build context small: no git history, no local run artefacts, no
+# caches. The SUMO scenario files under simulation/ *are* required and are
+# therefore not excluded.
+.git
+.gitignore
+.pytest_cache
+**/__pycache__
+**/*.pyc
+runs/
+todo.md
+docs/
+datasets/
+*.png

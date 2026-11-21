@@ -1,0 +1,119 @@
+{
+  "config": {
+    "sumocfg": "/workspace/traffora/simulation/orchestrator/unified.sumocfg",
+    "seed": 42,
+    "end_time": 900,
+    "signal_control": true,
+    "traffic_mind": true,
+    "green_corridor": false,
+    "park_sense": false
+  },
+  "metrics": {
+    "simulation_time_s": 900.0,
+    "steps": 899,
+    "vehicles_departed": 616,
+    "vehicles_arrived": 595,
+    "average_waiting_time_s": 3.424,
+    "average_queue_length_m": 0.543,
+    "average_travel_time_s": 147.974,
+    "emergency_vehicle_travel_time_s": 262.5,
+    "emergency_priority_response_time_s": null,
+    "parking_occupancy_pct": null,
+    "parking_search_time_s": null,
+    "accepted_decisions": 3,
+    "rejected_decisions": 0,
+    "orchestrator_processing_latency_ms": 19.093,
+    "agent_availability_pct": 100.0,
+    "notes": []
+  },
+  "agents": [
+    {
+      "agent": "traffic_mind",
+      "health": "READY",
+      "available": true,
+      "message": "attached to shared simulation",
+      "last_update_s": 896.0,
+      "latency_ms": 18.572,
+      "details": {}
+    }
+  ],
+  "decisions": {
+    "total": 500,
+    "applied_signal_decisions": 3,
+    "rejected_signal_decisions": 0,
+    "by_type": {
+      "NO_ACTION": 497,
+      "TRAFFIC_OPTIMIZATION": 3
+    },
+    "rejection_reasons": []
+  },
+  "events": {
+    "pending": 0,
+    "processed": 94,
+    "rejected": 0,
+    "duplicates": 21
+  },
+  "latest_decision": {
+    "decision_id": "dec-8ba561fa15fd",
+    "timestamp_s": 900.0,
+    "decision_type": "NO_ACTION",
+    "priority": 3,
+    "source_agent": null,
+    "signal_actions": [],
+    "parking_recommendations": [],
+    "explanation": "No agent requested an action at this step.",
+    "validation": null,
+    "applied": true,
+    "rejected_reason": null,
+    "metadata": {
+      "reason": "no_recommendations"
+    }
+  },
+  "parking": {
+    "parking": null,
+    "occupancy_pct": null,
+    "search_time_s": null
+  },
+  "traffic": {
+    "simulation_time_s": 900.0,
+    "traffic": {
+      "timestamp_s": 896.0,
+      "vehicle_count": 22,
+      "average_speed_mps": 8.123,
+      "average_waiting_time_s": 4.25,
+      "average_queue_length_m": 0.163,
+      "congestion_level": "LOW",
+      "congested_junctions": [],
+      "junction_levels": {
+        "A1": "LOW",
+        "A2": "LOW",
+        "A3": "LOW",
+        "B0": "LOW",
+        "B1": "LOW",
+        "B2": "LOW",
+        "B3": "LOW",
+        "B4": "LOW",
+        "C0": "LOW",
+        "C1": "LOW",
+        "C2": "LOW",
+        "C3": "LOW",
+        "C4": "LOW",
+        "D0": "LOW",
+        "D1": "LOW",
+        "D2": "LOW",
+        "D3": "LOW",
+        "D4": "LOW",
+        "E1": "LOW",
+        "E2": "LOW",
+        "E3": "LOW"
+      },
+      "source": "traffic_mind"
+    },
+    "average_waiting_time_s": 3.424,
+    "average_queue_length": 0.543,
+    "average_travel_time_s": 147.974,
+    "vehicles_departed": 616,
+    "vehicles_arrived": 595,
+    "congestion_events": 94
+  }
+}

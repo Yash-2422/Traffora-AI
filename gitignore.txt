@@ -49,3 +49,6 @@ Thumbs.db
 # Temporary files
 tmp/
 temp/
+
+# Orchestrator run artifacts (logs, JSON reports)
+runs/

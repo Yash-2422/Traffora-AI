@@ -1,0 +1,32 @@
+# Central Orchestrator dependencies (kept separate so the shared
+# requirements-greencorridor.txt and the agent requirements stay untouched).
+#
+# SUMO itself is installed separately (Windows MSI / winget / apt); these are
+# the Python bindings plus the web layer.
+
+# SUMO Python bindings
+traci>=1.18
+sumolib>=1.18
+
+# Schemas and validation
+pydantic>=2.0
+
+# HTTP API (backend/orchestrator/api.py)
+fastapi>=0.110
+uvicorn>=0.27
+httpx>=0.27          # required by fastapi.testclient
+
+# Agents' own dependencies: the orchestrator imports all three agents, so the
+# union of their requirements is needed for a full run.
+pandas>=2.0
+numpy>=1.24
+joblib>=1.2
+networkx>=3.0
+matplotlib>=3.7
+
+# The shipped TrafficMind models were pickled with scikit-learn 1.9.1 and
+# raise on unpickle under other versions. Pin 1.7.2 to keep that suite green.
+scikit-learn==1.7.2
+
+# Testing
+pytest>=7.0
